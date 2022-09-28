@@ -1,0 +1,12 @@
+.search {
+  background-color: #3a3b3c;
+  border-color: #3a3b3c;
+  border-radius: 50px;
+  border-style: solid;
+  border-width: 1px;
+  color: #b0b3b8;
+  display: inline-block;
+  font-size: 14px;
+  padding: 0px 45px 0px 20px;
+  height: 2.5rem;
+}

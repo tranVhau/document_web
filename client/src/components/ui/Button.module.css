@@ -1,0 +1,14 @@
+.btn {
+  font-size: 1rem;
+  background-color: aliceblue;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid aliceblue;
+}
+
+.btn:hover {
+  background-color: aliceblue;
+  border: 1px solid rgb(11, 5, 193);
+  color: rgb(11, 5, 193);
+}
