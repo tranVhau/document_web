@@ -1,0 +1,51 @@
+.cateWrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hideCate {
+  display: none;
+}
+
+.category {
+  margin-top: 0.1rem;
+  width: 40%;
+  position: absolute;
+  height: auto;
+  background-color: #43878c;
+  z-index: 100;
+}
+
+.category ul {
+  height: auto;
+  list-style: none;
+  padding: 0 2.5rem;
+  margin-top: 1px;
+}
+
+.category li {
+  display: inline-block;
+  width: auto;
+  min-width: 8rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  padding: 0 1em;
+}
+
+.category a {
+  color: white;
+  text-decoration: none;
+}
+
+.category a:hover {
+  color: #95bcf0;
+  padding-bottom: 0.25rem;
+  border-bottom: 4px solid #95bcf0;
+}
+
+.category a:hover {
+  color: #ffffff;
+  padding-bottom: 0.25rem;
+  border-bottom: 4px solid #ffffff;
+}

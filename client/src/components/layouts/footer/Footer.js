@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import classes from "./Footer.module.css";
 function Footer() {
@@ -8,7 +9,7 @@ function Footer() {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <a>Footer here</a>
+            <NavLink>Footer here</NavLink>
           </li>
           {/* <li>
             <NavLink
