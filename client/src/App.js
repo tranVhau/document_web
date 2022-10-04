@@ -15,8 +15,7 @@ function App() {
               <Home />
             </div>
           }
-        ></Route>
-
+        />
         <Route
           path="/home"
           element={
@@ -24,9 +23,16 @@ function App() {
               <Home />
             </div>
           }
-        ></Route>
+        />
 
-        <Route path="/test" element={<div className="center"></div>}></Route>
+        <Route
+          path="*"
+          element={
+            <div className="center">
+              <Home />
+            </div>
+          }
+        />
       </Routes>
     </Layout>
   );

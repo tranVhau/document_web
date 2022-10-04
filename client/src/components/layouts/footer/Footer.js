@@ -9,16 +9,8 @@ function Footer() {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <NavLink>Footer here</NavLink>
+            <NavLink>footer section</NavLink>
           </li>
-          {/* <li>
-            <NavLink
-              to={"/home"}
-              className={(navLink) => (navLink.isActive ? classes.active : "")}
-            >
-              Home
-            </NavLink>
-          </li> */}
         </ul>
       </nav>
     </footer>
