@@ -21,6 +21,6 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>Laravel backend </h1>
+        <h1>Laravel Server Side</h1>
     </body>
 </html>

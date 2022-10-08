@@ -14,16 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('category_id')->constrained('categories');
             $table->id();
-            $table->integer('user_id');
-            $table->string('cate_id');
-            $table->integer('statusID');
             $table->string('name');
-            $table->longText('desc');
+            $table->string('desc');
             $table->string('img');
-            $table->string('src');
-            $table->integer('views')->default(0);
-            $table->float('rate')->default(0.0);
+            $table->boolean('isPublic')->require();
+
+           
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DocumentCotroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/document', [DocumentCotroller::class,'getAllDocument']);
 
 Route::get('/', function () {
     return view('welcome');

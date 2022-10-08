@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Approved_log extends Model
 {
     use HasFactory;
-    protected $fillable  = ['name','desc', 'img','isPublic'];
 }

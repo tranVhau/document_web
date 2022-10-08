@@ -24,7 +24,7 @@ function HomePage() {
 
   return (
     <>
-      <div className={classes.container}>
+      <div className={`${classes.container} `}>
         <div className={classes.slider}>
           <Slider {...setting}>
             <SlideBar />

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\document;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('document_statuses', function (Blueprint $table) {
+        Schema::create('approved_logs', function (Blueprint $table) {
+            $table->foreignId('document_id')->constrained('documents');
+            $table->foreignId('user_id')->constrained('users');   // user who Approved
             $table->id();
-            $table->integer('documentID');
-            $table->integer('categoryID');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('approved__logs');
     }
 };

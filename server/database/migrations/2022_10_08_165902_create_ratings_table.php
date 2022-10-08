@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
+           
             $table->id();
-            $table->string('name');
+            $table->integer('point');        
             $table->timestamps();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('document_id')->constrained('documents');
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_statuses');
+        Schema::dropIfExists('ratings');
     }
 };
