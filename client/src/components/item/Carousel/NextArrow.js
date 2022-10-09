@@ -2,13 +2,13 @@ import React from "react";
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
-  console.log(props);
   return (
     <div
       className={className}
       style={{
         ...style,
-        display: "block",
+        display: "flex",
+        justifyContent: "center",
         background: "rgb(231 231 231)",
         borderRadius: "10.9rem",
         height: "2.5rem",

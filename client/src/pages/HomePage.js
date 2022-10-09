@@ -8,9 +8,6 @@ import PrevArrow from "../components/item/Carousel/PrevArrow";
 
 import classes from "./HomePage.module.css";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 function HomePage() {
   const setting = {
     dots: true,
