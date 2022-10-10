@@ -31,6 +31,8 @@ class DocumentController extends Controller
         ]);
 
         $document = Document::create([
+            'user_id'=>$request->user_id,
+            'category_id'=>$request->category_id,
             'name' => $request->name,
             'desc' => $request->desc,
             'img' => $request->img,

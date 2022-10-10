@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Rating extends Model
 {
     use HasFactory;
-    protected $fillable = ['point'];
+    protected $fillable = ['point', 'user_id', 'document_id'];
 }

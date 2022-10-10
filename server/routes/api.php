@@ -1,10 +1,13 @@
 <?php
+
+use App\Http\Controllers\ApprovedLogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +51,22 @@ Route::controller(DocumentController::class)->group(function () {
     Route::get('document/{id}', 'show');
     Route::put('document/{id}', 'update');
     Route::delete('document/{id}', 'destroy');
+}); 
+
+
+Route::controller(RatingController::class)->group(function () {
+    Route::get('ratings', 'index');
+    Route::post('rating', 'store');
+    Route::get('rating/{id}', 'show');
+    Route::put('rating/{id}', 'update');
+    Route::delete('rating/{id}', 'destroy');
+}); 
+
+
+Route::controller(ApprovedLogController::class)->group(function () {
+    Route::get('approved_logs', 'index');
+    Route::post('approved_logs', 'store');
+    Route::get('approved_logs/{id}', 'show');
+    // Route::put('rating/{id}', 'update');
+    // Route::delete('rating/{id}', 'destroy');
 }); 
