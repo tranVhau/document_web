@@ -1,0 +1,33 @@
+.container {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style-type: none;
+  margin-top: 5rem;
+}
+
+.page_item {
+  line-height: 40px;
+  width: 40px;
+  text-align: center;
+  border-radius: 150px;
+  cursor: pointer;
+  font-size: 16px;
+  border: 1px solid #e2e2e2;
+  margin: 0.5rem;
+  user-select: none;
+}
+
+.page_link {
+  display: block;
+  padding: auto;
+}
+
+.page_item:hover {
+  background-color: orange;
+}
+
+.page_item_active {
+  background-color: orange;
+}

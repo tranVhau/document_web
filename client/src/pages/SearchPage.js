@@ -1,25 +1,14 @@
 import React from "react";
 
 import FilterSearch from "../components/item/Filter/FilterSearch";
-import DocumentItem from "../components/item/DocumentItem";
+import PaginatedItems from "../components/item/pagination/PaginatedItem";
 
 import classes from "./SearchPage.module.css";
 function SearchPage() {
   return (
     <>
       <FilterSearch />
-      <div className={classes.post_list}>
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-        <DocumentItem />
-      </div>
+      <PaginatedItems itemsPerPage={3} />
     </>
   );
 }

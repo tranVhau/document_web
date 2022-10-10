@@ -36,16 +36,16 @@ function FilterSearch() {
         </tbody>
         <tbody>
           <tr>
-            <th>Tình trạng</th>
+            <th>Sắp Xếp</th>
           </tr>
           <tr>
             <td>
               <ul className={classes.choose}>
                 <li>
-                  <a href="">Đang tiến hành</a>
+                  <a href="">Ngày tăng dần</a>
                 </li>
                 <li>
-                  <a href="">Hoàn thành</a>
+                  <a href="">Ngày giảm dần</a>
                 </li>
               </ul>
             </td>
