@@ -1,0 +1,115 @@
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.book_info {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  column-gap: 5rem;
+}
+
+
+.book_info .book_avatar {
+  margin: auto;
+  padding: 10px;
+  
+}
+
+.book_other .list_info {
+  padding: 0;
+  margin: 0;
+}
+
+.book_other .list_info li {
+  list-style: none;
+  display: flex;
+}
+
+.book_other .info_title {
+  width: 10rem;
+}
+
+.cates_list {
+  display: flex;
+  list-style: none;
+  text-decoration: none;
+  justify-content: left;
+  margin-left: -50px;
+}
+
+.cates_list li {
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid #f18121;
+  color: #f18121;
+  padding: 4px 6px;
+  border-radius: 3px;
+  margin-right: 10px;
+  
+}
+
+.cates_list li:hover {
+  background: #f18121;
+  color: #fff;
+  list-style: none;
+}
+
+.story_detail_menu ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.story_detail_menu li {
+  width: 8rem;
+  text-align: center;
+  padding: 1rem 2px;
+  margin: 0 2rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.story_detail_menu .li01 {
+  background: #8bc34a;
+}
+
+.story_detail_menu .li02 {
+  background-color: #209cee;
+}
+
+.story_detail_menu .li03 {
+  background: #bd10e0;
+}
+
+.story_detail_menu .li04 {
+  background-color: #ff3860;
+}
+
+.sticky_table {
+  overflow: scroll;
+  height: 20rem;
+  border: 1px solid #f0f4f8;
+  overflow-x: hidden;
+}
+
+table {
+  width: 100%;
+}
+table th,
+table td {
+  padding: 15px 30px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+table th {
+  color: #364d67;
+  font-weight: 600;
+  background-color: #f1f7fd;
+}
+table td {
+  background-color: white;
+}
