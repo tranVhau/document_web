@@ -52,7 +52,7 @@ function Navigator() {
                 className={(navLink) =>
                   navLink.isActive ? classes.active : ""
                 }
-                to={"/trending"}
+                to={"/popular"}
               >
                 Popular
               </NavLink>

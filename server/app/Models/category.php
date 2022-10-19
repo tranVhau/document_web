@@ -9,4 +9,8 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable=['name'];
+
+    public function document_category(){
+        return $this->hasMany('App\Models\document_category');
+    }
 }

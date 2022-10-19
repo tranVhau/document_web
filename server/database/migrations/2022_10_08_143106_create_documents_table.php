@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('category_id')->constrained('categories');
             $table->id();
-            $table->string('name');
-            $table->string('desc');
-            $table->string('img');
+            $table->string('name')->nullable();
+            $table->text('desc')->nullable();
+            $table->string('thumbnail');
             $table->boolean('isPublic')->require();
 
            

@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     use HasFactory;
-    protected $fillable  = ['name','category_id','user_id','desc', 'img','isPublic'];
+    protected $fillable  = ['name','user_id','descr', 'thumbnail','isPublic'];
+    
+    public function document_category(){
+        return $this->hasMany('App\Models\document_category');
+    }
 }

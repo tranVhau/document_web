@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
@@ -14,7 +16,33 @@ class DocumentController extends Controller
 
     public function index()
     {
-        $documents = Document::all();
+        $category = DB::table('document_categories')
+                    ->join('categories', 'categories.id','=','document_categories.category_id')
+                    ->select('document_categories.document_id', 'categories.name as category_name')
+                    ->get();
+        
+
+        $documents = DB::table('documents')
+                    ->join('users', 'users.id','=','documents.user_id')
+                    ->select('documents.*'  ,'users.name as username', 'users.avt')
+                    ->get();
+
+        // add the array space to store all document category
+
+        forEach($documents as $element){
+            $element->categories = array();
+        }
+
+        
+        forEach( $documents as $doc){
+           forEach($category as $cate){
+            if($cate->document_id == $doc->id){
+                array_push($doc->categories,$cate->category_name);
+            }
+           }
+        }
+
+        
         return response()->json([
             'status' => 'success',
             'documents' => $documents,
@@ -25,17 +53,16 @@ class DocumentController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'desc' => 'string',
-            'img' => 'string',
+            'descr' => 'string',
+            'thumbnail' => 'string',
             'isPublic'=>'boolean'
         ]);
 
         $document = Document::create([
             'user_id'=>$request->user_id,
-            'category_id'=>$request->category_id,
             'name' => $request->name,
-            'desc' => $request->desc,
-            'img' => $request->img,
+            'descr' => $request->descr,
+            'thumbnail' => $request->thumbnail,
             'isPublic'=>$request->isPublic,
         ]);
 
@@ -59,15 +86,15 @@ class DocumentController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'desc' => 'string',
-            'img' => 'string',
+            'descr' => 'string',
+            'thumbnail' => 'string',
             'isPublic'=>'boolean'
         ]);
 
         $document = Document::find($id);
         $document->name = $request->name;
-        $document->desc = $request->desc;
-        $document->img = $request->img;
+        $document->descr = $request->descr;
+        $document->thumbnail = $request->thumbnail;
         $document->isPublic = $request->isPublic;
         $document->save();
 

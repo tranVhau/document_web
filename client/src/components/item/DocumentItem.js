@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./DocumentItem.module.css";
+import { NavLink } from "react-router-dom";
 
 function DocumentItem() {
   return (
@@ -15,9 +16,9 @@ function DocumentItem() {
         Kinh tế
       </a>
       <h3>
-        <a href="#" className={classes.post_title}>
+        <NavLink to={"/document"} className={classes.post_title}>
           Những ông trùm tài chính
-        </a>
+        </NavLink>
       </h3>
       <p className={classes.post_desc}>
         Đây là một cuốn sách khá dễ đọc và lôi cuốn mà những người bình thường
