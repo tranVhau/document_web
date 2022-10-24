@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Admin Dashboard</title>
 
     <!-- Montserrat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    />
   </head>
   <body>
     <div class="grid-container">
-
       <!-- Header -->
       <header class="header">
         <div class="menu-icon" onclick="openSidebar()">
@@ -40,7 +48,9 @@
           <div class="sidebar-brand">
             <span class="material-icons-outlined">inventory</span> Comics
           </div>
-          <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+          <span class="material-icons-outlined" onclick="closeSidebar()"
+            >close</span
+          >
         </div>
 
         <ul class="sidebar-list">
@@ -67,11 +77,9 @@
         </div>
 
         <div class="main-cards">
-
           <div class="card">
             <div class="card-inner">
               <p class="text-primary">DOCUMENT</p>
-              
             </div>
             <span class="text-primary font-weight-bold">249</span>
           </div>
@@ -96,11 +104,9 @@
             </div>
             <span class="text-primary font-weight-bold">56</span>
           </div>
-
         </div>
 
         <div class="charts">
-
           <div class="charts-card">
             <p class="chart-title">Top 5 Document</p>
             <div id="bar-chart"></div>
@@ -110,11 +116,9 @@
             <p class="chart-title">Evaluate</p>
             <div id="area-chart"></div>
           </div>
-
         </div>
       </main>
       <!-- End Main -->
-
     </div>
 
     <!-- Scripts -->

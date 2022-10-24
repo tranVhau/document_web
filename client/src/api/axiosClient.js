@@ -4,8 +4,6 @@ import queryString from "query-string";
 import { parse, stringify } from "qs";
 // Set up default config for http requests here
 
-// Please have a look at here `https://github.com/axios/axios#request-config for the full list of configs
-
 const axiosClient = axios.create({
   baseURL: "https://js-post-api.herokuapp.com/api",
   headers: {
@@ -18,11 +16,20 @@ const axiosClient = axios.create({
   },
 });
 
-axiosClient.interceptors.request.use(async (config) => {
-  // Handle token here ...
-  return config;
-});
+// Add a request interceptor
+axios.interceptors.request.use(
+  function (config) {
+    //handle token...
+    // Do something before request is sent
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
+// Add a response interceptor
 axiosClient.interceptors.response.use(
   (response) => {
     if (response && response.data) {

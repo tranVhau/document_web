@@ -46,7 +46,6 @@ body {
   height: 100vh;
 }
 
-
 /* ---------- HEADER ---------- */
 
 .header {
@@ -63,7 +62,6 @@ body {
 .menu-icon {
   display: none;
 }
-
 
 /* ---------- SIDEBAR ---------- */
 
@@ -121,7 +119,6 @@ body {
   */
   z-index: 12 !important;
 }
-
 
 /* ---------- MAIN ---------- */
 
@@ -219,7 +216,6 @@ body {
   font-weight: 600;
 }
 
-
 /* ---------- SCROLLBARS ---------- */
 
 ::-webkit-scrollbar {
@@ -241,9 +237,7 @@ body {
   background-color: #a5aaad;
 }
 
-
 /* ---------- MEDIA QUERIES ---------- */
-
 
 /* Medium <= 992px */
 @media screen and (max-width: 992px) {

@@ -1,10 +1,12 @@
 .document_view {
   font-family: sans-serif;
-  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 /* For pdf */
-/* .react-pdf__Page {
+.react-pdf__Page {
   margin-top: 10px;
 }
 .react-pdf__Page__textContent {
@@ -19,12 +21,12 @@
 
 .react-pdf__Page__canvas {
   margin: 0 auto;
-} */
+}
 
 /* For all pages */
 .all_page_container {
-  width: 50%;
+  width: 100%;
   height: 100%;
-  max-height: 700px;
+  max-height: 800px;
   overflow: scroll;
 }
