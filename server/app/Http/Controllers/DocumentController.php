@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
 
     public function index()
     {
@@ -46,7 +46,7 @@ class DocumentController extends Controller
         return response()->json([
             'status' => 'success',
             'documents' => $documents,
-        ]);
+        ], 200 );
     }
 
     public function store(Request $request)
@@ -61,7 +61,7 @@ class DocumentController extends Controller
         $document = Document::create([
             'user_id'=>$request->user_id,
             'name' => $request->name,
-            'descr' => $request->descr,
+            'desc' => $request->descr,
             'thumbnail' => $request->thumbnail,
             'isPublic'=>$request->isPublic,
         ]);
@@ -76,10 +76,19 @@ class DocumentController extends Controller
     public function show($id)
     {
         $document = Document::find($id);
-        return response()->json([
-            'status' => 'success',
-            'document' => $document,
-        ]);
+
+        if($document){
+            return response()->json([
+                'status' => 'success',
+                'document' => $document,
+            ], 200 );
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'document not found',
+            ], 404);
+        }
+       
     }
 
     public function update(Request $request, $id)
@@ -102,7 +111,7 @@ class DocumentController extends Controller
             'status' => 'success',
             'message' => 'Document updated successfully',
             'document' => $document,
-        ]);
+        ], 200 );
     }
 
     public function destroy($id)

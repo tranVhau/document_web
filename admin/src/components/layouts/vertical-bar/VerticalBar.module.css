@@ -1,0 +1,59 @@
+.sidebar {
+  grid-area: sidebar;
+  height: 100%;
+  background-color: #21232d;
+  color: #9799ab;
+  overflow-y: auto;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.sidebar_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 30px;
+}
+
+.sidebar_title > span {
+  display: none;
+}
+
+.sidebar_brand {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #9799ab;
+  cursor: pointer;
+}
+
+.sidebar_list {
+  padding: 0;
+  margin-top: 15px;
+  list-style-type: none;
+}
+
+.sidebar_list_item {
+  padding: 20px 20px 20px 20px;
+  text-decoration: none;
+  display: block;
+  color: #9799ab;
+}
+
+.sidebar_list_item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar_responsive {
+  display: inline !important;
+  position: absolute;
+  /*
+      the z-index of the ApexCharts is 11
+      we want the z-index of the sidebar higher so that
+      the charts are not showing over the sidebar 
+      on small screens
+    */
+  z-index: 12 !important;
+}

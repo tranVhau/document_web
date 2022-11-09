@@ -1,0 +1,83 @@
+.wrap_login {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(152deg, #2b5876, #4e4376) no-repeat;
+}
+
+.auth {
+  margin: 10rem auto;
+  width: 95%;
+  max-width: 25rem;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 26px rgb(0 0 0 / 50%);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.auth h1 {
+  text-align: center;
+  color: rgb(54, 54, 54);
+  margin-bottom: 2rem;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  display: block;
+  color: rgb(54, 54, 54);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.control input {
+  font: inherit;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 4px;
+  border: 1px solid rgb(105, 105, 105);
+  width: 100%;
+  text-align: left;
+  padding: 0.25rem;
+}
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.actions button {
+  cursor: pointer;
+  font: inherit;
+  color: rgb(255, 255, 255);
+  background-color: #3a557c;
+  border: 1px solid #005587;
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 0.5rem 2.5rem;
+  width: 100%;
+}
+
+.actions button:hover {
+  background-color: #5c7597;
+}
+
+.actions .toggle {
+  margin-top: 1rem;
+  background-color: transparent;
+  color: rgb(54, 54, 54);
+  border: none;
+  padding: 0.15rem 1.5rem;
+  font-weight: bold;
+}
+
+.actions .toggle:hover {
+  background-color: transparent;
+  color: rgb(82, 82, 82);
+}

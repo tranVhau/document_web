@@ -1,0 +1,41 @@
+.document_view {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* For pdf */
+.react-pdf__Page {
+  margin-top: 10px;
+}
+.react-pdf__Page__textContent {
+  border: 1px solid darkgrey;
+  box-shadow: 0px 1px 10px 1px #ccc;
+  border-radius: 5px;
+}
+
+.react-pdf__Page__annotations.annotationLayer {
+  padding: 0px;
+}
+
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+}
+
+/* For all pages */
+.all_page_container {
+  width: 54%;
+  height: 100%;
+  max-height: 800px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.doc_wrapper {
+  width: 100%;
+  height: 100%;
+  max-height: 800px;
+  display: flex;
+  justify-content: center;
+}

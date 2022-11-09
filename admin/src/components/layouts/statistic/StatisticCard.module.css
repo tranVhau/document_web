@@ -1,0 +1,46 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 25px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border: 1px solid #d2d2d3;
+  border-radius: 5px;
+  box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+}
+
+.card:first-child {
+  border-left: 7px solid #246dec;
+}
+
+.card:nth-child(2) {
+  border-left: 7px solid #f5b74f;
+}
+
+.card:nth-child(3) {
+  border-left: 7px solid #367952;
+}
+
+.card:nth-child(4) {
+  border-left: 7px solid #cc3c43;
+}
+
+.card > span {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card_inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card_inner > p {
+  font-size: 18px;
+}
+
+.card_inner > span {
+  font-size: 35px;
+}

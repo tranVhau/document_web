@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->text('desc')->nullable();
             $table->string('thumbnail');
+            $table->string('src');
             $table->boolean('isPublic')->require();
 
            

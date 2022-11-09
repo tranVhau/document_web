@@ -22,45 +22,42 @@ use App\Http\Controllers\RatingController;
 */
 
 Route::controller(AuthController::class)->group(function () {
-    Route::post('login', 'login');
-    Route::post('register', 'register');
-    Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
-
+    Route::post('auth/login', 'login');
+    Route::post('auth/register', 'register');
+    Route::post('auth/logout', 'logout');
+    Route::post('auth/refresh', 'refresh');
 });
 
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('categories', 'index');
-    Route::post('category', 'store');
+    Route::post('category', 'store')->middleware('auth:api');;
     Route::get('category/{id}', 'show');
-    Route::put('category/{id}', 'update');
-    Route::delete('category/{id}', 'destroy');
+    Route::put('category/{id}', 'update')->middleware('auth:api');;
+    Route::delete('category/{id}', 'destroy')->middleware('auth:api');;
 }); 
 
 Route::controller(DocumentController::class)->group(function () {
     Route::get('documents', 'index');
-    Route::post('document', 'store');
+    Route::post('document', 'store')->middleware('auth:api');
     Route::get('document/{id}', 'show');
-    Route::put('document/{id}', 'update');
-    Route::delete('document/{id}', 'destroy');
+    Route::put('document/{id}', 'update')->middleware('auth:api');;
+    Route::delete('document/{id}', 'destroy')->middleware('auth:api');;
 }); 
 
 
 Route::controller(RatingController::class)->group(function () {
     Route::get('ratings', 'index');
-    Route::post('rating', 'store');
+    Route::post('rating', 'store')->middleware('auth:api');;
     Route::get('rating/{id}', 'show');
-    Route::put('rating/{id}', 'update');
-    Route::delete('rating/{id}', 'destroy');
+    Route::put('rating/{id}', 'update')->middleware('auth:api');;
+    Route::delete('rating/{id}', 'destroy')->middleware('auth:api');;
 }); 
 
 
 Route::controller(ApprovedLogController::class)->group(function () {
-    Route::get('approved_logs', 'index');
-    Route::post('approved_logs', 'store');
-    Route::get('approved_logs/{id}', 'show');
-    // Route::put('rating/{id}', 'update');
-    // Route::delete('rating/{id}', 'destroy');
+    Route::get('approved_logs', 'index')->middleware('auth:api');;
+    Route::post('approved_logs', 'store')->middleware('auth:api');;
+    Route::get('approved_logs/{id}', 'show')->middleware('auth:api');;
 }); 
  

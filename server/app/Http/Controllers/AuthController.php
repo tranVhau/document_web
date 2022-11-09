@@ -38,7 +38,7 @@ class AuthController extends Controller
                     'token' => $token,
                     'type' => 'bearer',
                 ]
-            ]);
+            ],200 );
 
     }
 
@@ -53,20 +53,20 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avt'=>$request->avt,
-            'isAdmin'=> $request->isAdmin,
+            'avt'=>'',
+            'isAdmin'=> 1,
         ]);
 
-        $token = Auth::login($user);
+        // $token = Auth::login($user);
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
             'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
+            // 'authorisation' => [
+            //     'token' => $token,
+            //     'type' => 'bearer',
+            // ]
+        ], 200 );
     }
 
     public function logout()
