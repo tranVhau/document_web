@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Cloudinary\Cloudinary;
+use Cloudinary\Transformation\Resize;
 
 class DocumentController extends Controller
 {
@@ -54,16 +56,28 @@ class DocumentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'descr' => 'string',
-            'thumbnail' => 'string',
-            'isPublic'=>'boolean'
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'isPublic'=>'boolean',
+            'src'=> "required|mimetypes:application/pdf|max:10000",
         ]);
+
+      
+        $documentClound = $request->file('src')->storeOnCloudinary('document_web/document');
+        $thumbCloundDir = $documentClound->getFileName();
+        $cld = new Cloudinary();
+        
+        $thumbConvert = $cld->image($thumbCloundDir.'.jpg')->resize(Resize::fill()->width(400)->height(600))->toUrl();
+
+        $thumbnailClound = $thumbConvert->getScheme().'://'.$thumbConvert->getHost().'/'.$thumbConvert->getPath();
+
 
         $document = Document::create([
             'user_id'=>$request->user_id,
             'name' => $request->name,
             'desc' => $request->descr,
-            'thumbnail' => $request->thumbnail,
+            'thumbnail' => $thumbnailClound,
             'isPublic'=>$request->isPublic,
+            'src'=>$documentClound->getPath(),
         ]);
 
         return response()->json([
@@ -88,41 +102,70 @@ class DocumentController extends Controller
                 'message' => 'document not found',
             ], 404);
         }
-       
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
             'descr' => 'string',
-            'thumbnail' => 'string',
-            'isPublic'=>'boolean'
+            'src'=> "required|mimetypes:application/pdf|max:10000",
         ]);
 
-        $document = Document::find($id);
-        $document->name = $request->name;
-        $document->descr = $request->descr;
-        $document->thumbnail = $request->thumbnail;
-        $document->isPublic = $request->isPublic;
-        $document->save();
+        if(Document::find($id)){
+            $document = Document::find($id);
+            if($request->name != null){
+                $document->name = $request->name;
+            }
+            if($request->descr!=null){
+                $document->descr = $request->descr;
+            }
+    
+            if($request->src !=null){
+                $documentClound = $request->file('src')->storeOnCloudinary('document_web/document');
+                $thumbCloundDir = $documentClound->getFileName();
+                $cld = new Cloudinary();
+                
+                $thumbConvert = $cld->image($thumbCloundDir.'.jpg')->resize(Resize::fill()->width(400)->height(600))->toUrl();
+                $thumbnailClound = $thumbConvert->getScheme().'://'.$thumbConvert->getHost().'/'.$thumbConvert->getPath();
+                
+                
+                $document->src = $documentClound->getPath();
+                $document->thumbnail = $thumbnailClound;
+            }
+            $document->save();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Document updated successfully',
+                'document' => $document,
+            ], 200 );
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Document Not Found',
+            ], 404 );
+        }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Document updated successfully',
-            'document' => $document,
-        ], 200 );
+       
     }
 
     public function destroy($id)
     {
         $document = Document::find($id);
-        $document->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Document deleted successfully',
-            'document' => $document,
-        ]);
+        if($document != null){
+            $document->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Document deleted successfully',
+            ], 200);
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Document Not Found',
+            ], 404);
+        }
+       
     }
 }
