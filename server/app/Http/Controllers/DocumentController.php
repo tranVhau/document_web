@@ -11,10 +11,10 @@ use Cloudinary\Transformation\Resize;
 
 class DocumentController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index','show']]);
+    }
 
     public function index()
     {
@@ -55,7 +55,7 @@ class DocumentController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'descr' => 'string',
+            'desc' => 'string',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'isPublic'=>'boolean',
             'src'=> "required|mimetypes:application/pdf|max:10000",
@@ -74,7 +74,7 @@ class DocumentController extends Controller
         $document = Document::create([
             'user_id'=>$request->user_id,
             'name' => $request->name,
-            'desc' => $request->descr,
+            'desc' => $request->desc,
             'thumbnail' => $thumbnailClound,
             'isPublic'=>$request->isPublic,
             'src'=>$documentClound->getPath(),
@@ -91,10 +91,38 @@ class DocumentController extends Controller
     {
         $document = Document::find($id);
 
+
+        $category = DB::table('document_categories')
+            ->join('categories', 'categories.id','=','document_categories.category_id')
+            ->select('document_categories.document_id', 'categories.name as category_name')
+            ->where('document_categories.document_id','=',$id)
+            ->get();
+        
+
+        $documents = DB::table('documents')
+                    ->join('users', 'users.id','=','documents.user_id')
+                    ->select('documents.*'  ,'users.name as username', 'users.avt')
+                    ->where('documents.id','=',$id)
+                    ->get();
+
+        // add the array space to store all document category
+        forEach($documents as $element){
+            $element->categories = array();
+        }
+        forEach( $documents as $doc){
+            forEach($category as $cate){
+             if($cate->document_id == $doc->id){
+                 array_push($doc->categories,$cate->category_name);
+             }
+            }
+         }
+        
+
+
         if($document){
             return response()->json([
                 'status' => 'success',
-                'document' => $document,
+                'document' => $documents,
             ], 200 );
         }else{
             return response()->json([
@@ -107,9 +135,9 @@ class DocumentController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'string|max:255',
-            'descr' => 'string',
-            'src'=> "required|mimetypes:application/pdf|max:10000",
+            'name' => 'string|max:255|nullable',
+            'desc' => 'string|nullable',
+            'src'=> "mimetypes:application/pdf|max:10000|nullable",
         ]);
 
         if(Document::find($id)){
@@ -117,8 +145,8 @@ class DocumentController extends Controller
             if($request->name != null){
                 $document->name = $request->name;
             }
-            if($request->descr!=null){
-                $document->descr = $request->descr;
+            if($request->desc!=null){
+                $document->desc = $request->desc;
             }
     
             if($request->src !=null){
@@ -146,8 +174,6 @@ class DocumentController extends Controller
                 'message' => 'Document Not Found',
             ], 404 );
         }
-
-       
     }
 
     public function destroy($id)

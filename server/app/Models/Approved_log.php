@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Approved_log extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'document_id', 'note'];
+    protected $fillable = ['user_id', 'document_id'];
     
 
 };
