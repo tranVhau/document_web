@@ -16,7 +16,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
-    // <Layout>
     <Routes>
       <Route element={<Layout />}>
         <Route path="dashboard" element={<DashBoardPage />} />
@@ -30,9 +29,9 @@ function App() {
         <Route path="pending-action" element={<PendingAction />} />
       </Route>
       <Route path="/login" element={<AuthPage />} />
+      <Route path="/" element={<AuthPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
-    // </Layout>
   );
 }
 

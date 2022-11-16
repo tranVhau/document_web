@@ -19,13 +19,23 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
                 <NavLink
                   to={navi}
                   className={classes.edit_btn}
-                  onClick={() => alert(row.row.original.firstname + " clicked")}
+                  onClick={() =>
+                    setRowSelected({
+                      id: row.row.original.id,
+                      name: row.row.original.name,
+                    })
+                  }
                 >
                   edit
                 </NavLink>
                 <div
                   className={classes.del_btn}
-                  onClick={() => setRowSelected(row.row.original.firstname)}
+                  onClick={() =>
+                    setRowSelected({
+                      id: row.row.original.id,
+                      name: row.row.original.name,
+                    })
+                  }
                 >
                   Delete
                 </div>
@@ -35,7 +45,12 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
             return (
               <div
                 className={classes.view_btn}
-                onClick={() => setRowSelected(row.row.original.firstname)}
+                onClick={() =>
+                  setRowSelected({
+                    id: row.row.original.id,
+                    name: row.row.original.name,
+                  })
+                }
               >
                 view
               </div>
@@ -50,6 +65,9 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
     {
       columns: columns,
       data: data,
+      initialState: {
+        hiddenColumns: ["id"],
+      },
     },
     useGlobalFilter, // useGlobalFilter!
     usePagination,

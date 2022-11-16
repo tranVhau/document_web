@@ -19,8 +19,8 @@ class CategoryController extends Controller
         $category = Category::all();
         return response()->json([
             'status' => 'success',
-            'category' => $category,
-        ]);
+            'data' => $category,
+        ], 200);
     }
 
 
@@ -42,8 +42,8 @@ class CategoryController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'category created successfully',
-            'category' => $category,
-        ]);
+            'data' => $category,
+        ],200);
 
 
 
@@ -104,7 +104,7 @@ class CategoryController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'category deleted successfully',
-                'category' => $category,
+                'data' => $category,
             ], 200);
         }else{
             return response()->json([
