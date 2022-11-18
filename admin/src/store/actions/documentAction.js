@@ -80,7 +80,8 @@ export const update = createAsyncThunk(
 
 export const newDocument = createAsyncThunk(
   "document/newDocument",
-  async (document, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
+    const { document } = payload;
     try {
       const res = await documentAPI.store(document);
       return res.data;

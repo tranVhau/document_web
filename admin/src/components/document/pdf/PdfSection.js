@@ -3,7 +3,7 @@ import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 
 import "./PdfSection.css";
 
-function PdfSection(props) {
+const PdfSection = React.memo(function (props) {
   const [numPages, setNumPages] = useState(null);
 
   function onDocumentLoadSuccess({ numPages }) {
@@ -28,6 +28,6 @@ function PdfSection(props) {
       </div>
     </div>
   );
-}
+});
 
 export default PdfSection;

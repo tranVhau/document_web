@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import authAPI from "../../api/authAPI";
 
 //THUNK
 //register
@@ -34,20 +35,10 @@ export const registerUser = createAsyncThunk(
 
 export const userLogin = createAsyncThunk(
   "user/login",
-  async ({ email, password }, { rejectWithValue }) => {
+  async (userLoginData, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        { email, password },
-        config
-      );
-
-      localStorage.setItem("userToken", data.authorisation.token);
+      const data = await authAPI.login(userLoginData);
+      localStorage.setItem("userToken", data.access_token);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {

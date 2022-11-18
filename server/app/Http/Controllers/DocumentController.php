@@ -47,7 +47,7 @@ class DocumentController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'documents' => $documents,
+            'data' => $documents,
         ], 200 );
     }
 
@@ -122,7 +122,7 @@ class DocumentController extends Controller
         if($document){
             return response()->json([
                 'status' => 'success',
-                'document' => $documents,
+                'data' => $documents,
             ], 200 );
         }else{
             return response()->json([
@@ -166,7 +166,7 @@ class DocumentController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Document updated successfully',
-                'document' => $document,
+                'data' => $document,
             ], 200 );
         }else{
             return response()->json([

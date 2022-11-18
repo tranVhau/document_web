@@ -32,15 +32,17 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return response()->json([
-                'status' => 'success',
-                'user' => $user,
-                'authorisation' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
+            'access_token' => $token,
+            'type' => 'bearer',
             ],200 );
 
     }
+
+    public function me()
+    {
+        return response()->json(Auth::user());
+    }
+
 
     public function register(Request $request){
         $request->validate([

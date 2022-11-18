@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllDocument, update, newDocument } from "../actions/documentAction";
+import {
+  getAllDocument,
+  getDocument,
+  update,
+  newDocument,
+} from "../actions/documentAction";
 
 const initialState = {
   loading: false,

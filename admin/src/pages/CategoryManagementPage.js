@@ -39,9 +39,7 @@ function CategoryManagementPage() {
   const { category, success, error } = useSelector((state) => state.category);
 
   const fetchCategoryList = () => {
-    setTimeout(() => {
-      dispatch(getAllCate());
-    }, 100);
+    dispatch(getAllCate());
   };
   useEffect(() => {
     fetchCategoryList();
@@ -69,7 +67,7 @@ function CategoryManagementPage() {
     e.preventDefault();
     dispatch(newCate({ name: cateData.name }));
     if (success && error === null) {
-      toast("category Added", {
+      toast("Category Added", {
         type: "success",
       });
     }
@@ -90,7 +88,7 @@ function CategoryManagementPage() {
 
     dispatch(update({ category: { name: cateData.name }, id: rowSelected.id }));
     if (success) {
-      toast("category Added", {
+      toast("Category Updated", {
         type: "success",
       });
     }

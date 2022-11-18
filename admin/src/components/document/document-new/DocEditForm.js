@@ -118,14 +118,14 @@ function DocEditForm(props) {
                   onChange={formInputHandler}
                 ></input>
               </div>
-              <div>
+              {/* <div>
                 <label>Thumbnail</label>
                 <input
                   name="thumbnail"
                   type={"file"}
                   onChange={inputIMGHandler}
                 ></input>
-              </div>
+              </div> */}
               <div>
                 <label>Categories</label>
                 <div className={classes.cate_choose}>

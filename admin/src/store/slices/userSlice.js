@@ -25,7 +25,7 @@ const userSlice = createSlice({
     },
     [userLogin.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.userToken = payload.authorisation.token;
+      state.userToken = payload.access_token;
     },
     [userLogin.rejected]: (state, { payload }) => {
       state.loading = false;

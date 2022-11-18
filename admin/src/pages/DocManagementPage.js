@@ -1,112 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import Table from "../components/tables/Table";
+import DocumentTable from "../components/tables/DocumentTable";
 
 import classes from "./asset/css/StandardMain.module.css";
 import { NavLink } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getAllDocument } from "../store/actions/documentAction";
 
 function DocManagementPage() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "First Name",
-        accessor: "firstname",
+        Header: "ID",
+        accessor: "id",
       },
       {
-        Header: "Last Name",
-        accessor: "lastName",
+        Header: "Name",
+        accessor: "name",
       },
       {
-        Header: "Age",
-        accessor: "age",
-      },
-      {
-        Header: "City",
-        accessor: "city",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
+        Header: "Contributor",
+        accessor: "username",
       },
     ],
     []
   );
 
-  const data = React.useMemo(
-    () => [
-      {
-        firstname: "firstname1",
-        lastName: "hau1",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname10",
-        lastName: "hau2",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname9",
-        lastName: "hau3",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname8",
-        lastName: "hau4",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname7",
-        lastName: "hau5",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname6",
-        lastName: "hau6",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname5",
-        lastName: "hau7",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname4",
-        lastName: "hau8",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname3",
-        lastName: "hau9",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname2",
-        lastName: "hau10",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-    ],
-    []
-  );
+  const dispatch = useDispatch();
+  const { document } = useSelector((state) => state.document);
+
+  const fetchAllDocument = () => {
+    dispatch(getAllDocument());
+  };
+
+  useEffect(() => {
+    fetchAllDocument();
+  }, []);
 
   return (
     <>
@@ -124,12 +56,12 @@ function DocManagementPage() {
                 </NavLink>
               </div>
             </div>
-            <Table
+            <DocumentTable
               columns={columns}
-              data={data}
+              data={document}
               isDoc={true}
               navi="/edit-doc"
-            ></Table>
+            ></DocumentTable>
           </div>
         </div>
       </div>

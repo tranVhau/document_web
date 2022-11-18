@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import DocEditForm from "../components/document/document-new/DocEditForm";
 
-// react-select
-const cateOptions = [
-  { value: "Cate1", label: "Cate1" },
-  { value: "Cate2", label: "Cate2" },
-  { value: "Cate3", label: "Cate3" },
-  { value: "Cate4", label: "Cate4" },
-];
+import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+
+import { newDocument } from "../store/actions/documentAction";
+import { getAllCate } from "../store/actions/categoryAction";
 
 const authorOptions = [
   {
@@ -47,6 +45,28 @@ const initVal = {
 };
 
 function NewDocPage() {
+  const dispatch = useDispatch();
+  const { category } = useSelector((state) => state.category);
+
+  const [cateOptions, setCateOptions] = useState([]);
+
+  const fetchCategory = (arr) => {
+    const categories = [];
+    arr.map((cate) => {
+      categories.push({
+        value: cate.name,
+        label: cate.name,
+      });
+    });
+    return categories;
+  };
+  useEffect(() => {
+    dispatch(getAllCate());
+  }, []);
+  useEffect(() => {
+    setCateOptions(fetchCategory(category));
+  }, [category]);
+
   const [data, setData] = useState(initVal);
   return (
     <>

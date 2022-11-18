@@ -14,6 +14,7 @@ import "react-toastify/ReactToastify.min.css";
 
 const AuthForm = () => {
   const { loading, error, userToken } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const AuthForm = () => {
   };
 
   useEffect(() => {
+    console.log(userToken);
     if (userToken) {
       toast("Welcome Back!", {
         type: "success",

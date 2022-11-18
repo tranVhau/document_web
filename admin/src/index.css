@@ -15,3 +15,7 @@ code {
 a {
   cursor: pointer;
 }
+
+.react-pdf__message.react-pdf__message--loading {
+  text-align: center;
+}

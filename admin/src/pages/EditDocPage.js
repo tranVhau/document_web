@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import DocEditForm from "../components/document/document-new/DocEditForm";
 
 const cateOptions = [
-  { value: "Cate1", label: "Cate1" },
-  { value: "Cate2", label: "Cate2" },
-  { value: "Cate3", label: "Cate3" },
-  { value: "Cate4", label: "Cate4" },
+  // { value: "Cate1", label: "Cate1" },
+  // { value: "Cate2", label: "Cate2" },
+  // { value: "Cate3", label: "Cate3" },
+  // { value: "Cate4", label: "Cate4" },
 ];
 
 const authorOptions = [

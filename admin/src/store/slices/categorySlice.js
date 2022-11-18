@@ -1,10 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getAllCate,
-  getCate,
-  newCate,
-  delCate,
-} from "../actions/categoryAction";
+import { getAllCate, getCate, newCate } from "../actions/categoryAction";
 
 const initialState = {
   loading: false,
@@ -39,9 +34,11 @@ const categorySlice = createSlice({
       state.loading = true;
     },
     [newCate.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.success = true;
-      // state.category = state.category.push(payload);
+      return {
+        loading: false,
+        success: true,
+        category: state.category.push(payload),
+      };
     },
     [newCate.rejected]: (state, { payload }) => {
       state.loading = false;
