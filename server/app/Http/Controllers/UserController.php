@@ -58,6 +58,7 @@ class UserController extends Controller
             'email' => $request->email,
             'avt'=>$avatarClound->getPath(),
             'isAdmin'=> 1,
+            'password'=>Hash::make($request->password),
         ]);
 
         if($user){

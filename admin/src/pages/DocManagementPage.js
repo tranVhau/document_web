@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import DocumentTable from "../components/tables/DocumentTable";
 
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllDocument } from "../store/actions/documentAction";
 
 function DocManagementPage() {
+  const [rowSelected, setRowSelected] = useState({});
   const columns = React.useMemo(
     () => [
       {
@@ -61,6 +62,7 @@ function DocManagementPage() {
               data={document}
               isDoc={true}
               navi="/edit-doc"
+              setRowSelected={setRowSelected}
             ></DocumentTable>
           </div>
         </div>

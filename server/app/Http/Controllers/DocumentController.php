@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Cloudinary\Cloudinary;
 use Cloudinary\Transformation\Resize;
+use App\Models\document_category;
 
 class DocumentController extends Controller
 {
@@ -53,11 +54,11 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'desc' => 'string',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'isPublic'=>'boolean',
             'src'=> "required|mimetypes:application/pdf|max:10000",
         ]);
 
@@ -79,6 +80,27 @@ class DocumentController extends Controller
             'isPublic'=>$request->isPublic,
             'src'=>$documentClound->getPath(),
         ]);
+
+        $currDocID = $document->id;
+        $cates = $request->categories;
+
+       if($cates){
+        foreach ($cates as $cate ) {
+
+            $isExist = DB::table('document_categories')->where([
+                ['category_id', '=', $cate],
+                ['document_id', '=', $currDocID],
+            ])->first();
+
+            if($isExist == null){
+
+                    document_category::create([
+                    'category_id' => $cate,
+                    'document_id' => $currDocID,
+                ]);
+            }
+        }
+       }
 
         return response()->json([
             'status' => 'success',

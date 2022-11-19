@@ -5,7 +5,7 @@ import Category from "../category/Category";
 
 import classes from "./Navigator.module.css";
 
-function Navigator() {
+function Navigator(props) {
   const [visibleCate, setVisibleCate] = useState(false);
   return (
     <>
@@ -70,14 +70,9 @@ function Navigator() {
             </li>
 
             <li>
-              <NavLink
-                className={(navLink) =>
-                  navLink.isActive ? classes.active : ""
-                }
-                to={"/contact"}
-              >
-                Contact
-              </NavLink>
+              <div className={classes.contact} onClick={props.onClick}>
+                About
+              </div>
             </li>
           </ul>
         </nav>

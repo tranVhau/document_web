@@ -27,7 +27,6 @@ const AuthForm = () => {
   };
 
   useEffect(() => {
-    console.log(userToken);
     if (userToken) {
       toast("Welcome Back!", {
         type: "success",

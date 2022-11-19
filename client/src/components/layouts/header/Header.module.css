@@ -8,6 +8,10 @@
   background-color: #495c83;
 }
 
+.hidden_header {
+  display: none;
+}
+
 .logo {
   font-size: 2rem;
   color: white;

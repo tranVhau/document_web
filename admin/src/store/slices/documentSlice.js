@@ -24,13 +24,14 @@ const documentSlice = createSlice({
       state.loading = true;
     },
     [getDocument.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.document = payload;
-      state.success = true;
+      return {
+        loading: false,
+        document: payload,
+        success: true,
+      };
     },
     [getDocument.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
+      return { loading: false, error: payload };
     },
 
     //add document

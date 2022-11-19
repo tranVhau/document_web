@@ -32,7 +32,7 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
         id: "publish",
         Cell: (row) => {
           const date = moment(row.row.original.updated_at).format(
-            "DD/MMM/YYYY  -  HH:MM"
+            "DD/MMM/YYYY-HH:MM"
           );
 
           return <div>{date}</div>;
@@ -47,12 +47,11 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
             return (
               <div>
                 <NavLink
-                  to={navi}
+                  to={navi + "/" + row.row.original.id}
                   className={classes.edit_btn}
                   onClick={() =>
                     setRowSelected({
                       id: row.row.original.id,
-                      name: row.row.original.name,
                     })
                   }
                 >

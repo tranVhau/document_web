@@ -6,23 +6,15 @@ import PdfSection from "../pdf/PdfSection";
 
 import classes from "../../../pages/asset/css/NewDocPage.module.css";
 
-function DocEditForm(props) {
-  const [inputData, setInputData] = useState(props.initVal);
-  const [pdfFile, setPdfFile] = useState(props.initVal.src);
+function DocUpdateForm(props) {
+  const [inputData, setInputData] = useState(props.initDocData);
+  const [pdfFile, setPdfFile] = useState(props.initDocData.src);
 
+  console.log("edit", props.initDocData.categories);
+  console.log("option", props.cateOptions);
   useEffect(() => {
     props.setData(inputData);
   }, [inputData, props]);
-
-  const authorInputHandler = (e) => {
-    setInputData((prev) => {
-      return {
-        ...prev,
-        author: e.value,
-        authorAvt: e.img,
-      };
-    });
-  };
 
   const formInputHandler = (e) => {
     const { value, name } = e.target;
@@ -37,14 +29,17 @@ function DocEditForm(props) {
   const cateInputHandler = (arr) => {
     // const cateArr = inputData.categories;
     const cateArr = [];
+    const cateArrID = [];
     arr.forEach((cate) => {
       cateArr.push(cate.value);
+      cateArrID.push(cate.id);
     });
 
     setInputData((prev) => {
       return {
         ...prev,
         categories: cateArr,
+        categoriesID: cateArrID,
       };
     });
   };
@@ -82,30 +77,19 @@ function DocEditForm(props) {
         [name]: pdf,
       };
     });
-
-    console.log(inputData);
   };
-
   return (
     <>
       <div className={classes.new_doc}>
         <div className={classes.preview_section}>
           <h2>Preview Document Tag</h2>
-          <DocumentItem postData={inputData} />
+          <DocumentItem
+            postData={props.initDocData}
+            // author={props.initDocData}
+          />
         </div>
         <div className={classes.input_section}>
           <form className={classes.doc_form_info}>
-            {/* <div className={classes.author_section}>
-              <h1>Author</h1>
-              <div>
-                <Select
-                  placeholder={"Select Author..."}
-                  closeMenuOnSelect={true}
-                  options={props.authorOptions}
-                  onChange={authorInputHandler}
-                />
-              </div>
-            </div> */}
             <div className={classes.doc_section}>
               <h2>Document</h2>
               <div>
@@ -115,6 +99,7 @@ function DocEditForm(props) {
                   className={classes.author_name_input}
                   name="name"
                   type={"text"}
+                  //   defaultValue={[props.cateOptions[0]]}
                   onChange={formInputHandler}
                 ></input>
               </div>
@@ -144,13 +129,14 @@ function DocEditForm(props) {
                 <textarea
                   name="desc"
                   placeholder="Desciption Here"
+                  defaultValue={props.initDocData.desc}
                   onChange={formInputHandler}
                 ></textarea>
               </div>
               <div>
                 <label>File</label>
                 <input
-                  name="src"
+                  name="fileSrc"
                   type={"file"}
                   onChange={inputPDFHandler}
                 ></input>
@@ -161,10 +147,10 @@ function DocEditForm(props) {
       </div>
       <div>
         <h2>Preview Document</h2>
-        <PdfSection urlFile={pdfFile} />
+        <PdfSection urlFile={pdfFile ? pdfFile : props.initDocData.src} />
       </div>
     </>
   );
 }
 
-export default DocEditForm;
+export default DocUpdateForm;

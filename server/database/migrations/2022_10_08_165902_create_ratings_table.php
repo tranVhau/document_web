@@ -18,8 +18,8 @@ return new class extends Migration
             $table->id();
             $table->integer('point');        
             $table->timestamps();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('document_id')->constrained('documents');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('document_id')->constrained('documents')->onDelete('cascade');;
         });
     }
 

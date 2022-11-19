@@ -23,7 +23,7 @@ function App() {
         <Route path="category-manage" element={<CategoryManagementPage />} />
         <Route path="user-manage" element={<UserManagementPage />} />
         <Route path="new-doc" element={<NewDocPage />} />
-        <Route path="edit-doc" element={<EditDocPage />} />
+        <Route path="edit-doc/:id" element={<EditDocPage />} />
         <Route path="approved-log" element={<ApprovedLogPage />} />
         <Route path="pending-post" element={<PendingPostPage />} />
         <Route path="pending-action" element={<PendingAction />} />

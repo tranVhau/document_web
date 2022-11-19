@@ -1,13 +1,13 @@
 import axiosClient from "./axiosClient";
 
-const categoryAPI = {
+const documentAPI = {
   getAll: () => {
     const url = "http://localhost:8000/api/documents";
     return axiosClient.get(url);
   },
 
   get: (id) => {
-    const url = `http://localhost:8000/api/documents"/${id}`;
+    const url = `http://localhost:8000/api/document/${id}`;
     return axiosClient.get(url);
   },
 
@@ -35,4 +35,4 @@ const categoryAPI = {
   },
 };
 
-export default categoryAPI;
+export default documentAPI;

@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('approved_logs', function (Blueprint $table) {
-            $table->foreignId('document_id')->constrained('documents');
-            $table->foreignId('user_id')->constrained('users');   // user who Approved\
+            $table->foreignId('document_id')->constrained('documents')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');  // user who Approved\
             $table->id();
             $table->timestamps();
         });

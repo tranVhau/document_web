@@ -35,8 +35,8 @@ function App() {
   }, []);
 
   return (
-    <Layout>
-      <Routes>
+    <Routes>
+      <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="*" element={<HomePage />} />
@@ -44,8 +44,8 @@ function App() {
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/popular" element={<RankPage />} />
         <Route path="/document" element={<DisplayDoc />} />
-      </Routes>
-    </Layout>
+      </Route>
+    </Routes>
   );
 }
 

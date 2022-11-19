@@ -7,7 +7,7 @@ const userToken = localStorage.getItem("userToken")
 
 const initialState = {
   loading: false,
-  userInfo: {},
+  userInfo: [],
   userToken,
   error: null,
   success: false,
@@ -37,8 +37,10 @@ const userSlice = createSlice({
       state.loading = true;
     },
     [getUserInfo.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.userInfo = payload;
+      return {
+        loading: false,
+        userInfo: payload,
+      };
     },
     [getUserInfo.rejected]: (state, { payload }) => {
       state.loading = false;

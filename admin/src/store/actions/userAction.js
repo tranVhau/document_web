@@ -53,20 +53,10 @@ export const userLogin = createAsyncThunk(
 // get userInfo
 
 export const getUserInfo = createAsyncThunk(
-  "user/info",
-  async (arg, { getState, rejectWithValue }) => {
+  "user/me",
+  async (arg, { rejectWithValue }) => {
     try {
-      const { user } = getState();
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.userToken}`,
-        },
-      };
-      const { data } = await axios.get(
-        `http://server-pmhdt/api/auth/me`,
-        config
-      );
+      const data = await authAPI.me(`http://localhost:8000/api/auth/me`);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {

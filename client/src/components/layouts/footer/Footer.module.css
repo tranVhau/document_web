@@ -1,38 +1,35 @@
 .footer {
   width: 100%;
-  height: 8rem;
-  display: flex;
-  padding: 0 10%;
-  justify-content: space-between;
-  align-items: center;
+  padding: 3rem 3rem 2rem 3rem;
   background-color: #495c83;
-  bottom: 0;
 }
 
-.logo {
-  font-size: 2rem;
-  color: white;
-}
-
-.nav ul {
+.footer__nav {
   list-style: none;
   display: flex;
-  margin: 0;
-  padding: 0;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
-.nav li {
-  margin-left: 1.5rem;
-  font-size: 1.25rem;
+.footer__item {
+  margin-right: 4rem;
 }
 
-.nav a {
+.footer__link {
+  color: #eee;
   text-decoration: none;
-  color: #6e798f;
 }
 
-.nav a:hover,
-.nav a:active,
-.nav a.active {
-  color: #e6fcfc;
+.footer__logo {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+  font-size: large;
+}
+
+.footer__copyright {
+  margin-top: 2rem;
+  color: #aaa;
+  text-align: center;
 }

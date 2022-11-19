@@ -144,7 +144,7 @@ th {
 }
 
 .edit_btn:hover {
-  color: rgb(59, 59, 59);
+  color: #17df75;
   background-color: aliceblue;
   transition: 0.3s;
 }
@@ -164,7 +164,7 @@ th {
 
 .del_btn:hover {
   background-color: aliceblue;
-  color: rgb(59, 59, 59);
+  color: #fa5050;
   transition: 0.3s;
 }
 

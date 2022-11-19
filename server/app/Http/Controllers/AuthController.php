@@ -55,7 +55,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avt'=>'',
+            'avt'=>'https://res.cloudinary.com/dy9g317c9/image/upload/v1668783258/document_web/img/avatar/author_xfn2aa.jpg',
             'isAdmin'=> 0,
         ]);
 

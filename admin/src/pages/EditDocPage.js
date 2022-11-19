@@ -1,64 +1,95 @@
-import React, { useState } from "react";
-import DocEditForm from "../components/document/document-new/DocEditForm";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DocUpdateForm from "../components/document/document-new/DocUpdateFrom";
+import { useParams } from "react-router-dom";
 
-const cateOptions = [
-  // { value: "Cate1", label: "Cate1" },
-  // { value: "Cate2", label: "Cate2" },
-  // { value: "Cate3", label: "Cate3" },
-  // { value: "Cate4", label: "Cate4" },
-];
+import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 
-const authorOptions = [
-  {
-    value: "Author1",
-    label: "Author1",
-    img: require("./asset/img/green.webp"),
-  },
-  {
-    value: "Author2",
-    label: "Author2",
-    img: require("./asset/img/red.webp"),
-  },
-  {
-    value: "Author3",
-    label: "Author3",
-    img: require("./asset/img/yellow.webp"),
-  },
-  {
-    value: "Author4",
-    label: "Author4",
-    img: require("./asset/img/blue.webp"),
-  },
-];
+import { getAllCate } from "../store/actions/categoryAction";
+import { getAllDocument, getDocument } from "../store/actions/documentAction";
+import documentAPI from "../api/documentAPI";
+import moment from "moment";
 
-// react-select
-
-const initVal = {
+const initValue = {
   name: "Comic Name Here",
   thumbnail: require("./asset/img/default_2.png"),
   categories: ["cate1", "cate2", "..."],
+  categoriesID: [],
   desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio nemo quae in delectus quod atque sunt recusandae accusantium optio. Soluta omnis quod ut quibusdam, reprehenderit ipsam in assumenda magni eaque?",
-  author: "Author name", //current user
-  authorAvt: require("./asset/img/author.jpg"), //current user
+  username: "Author name", //current user/ or username
+  avt: require("./asset/img/author.jpg"), //current user
   uploadTime: "dd/MM/yyy", //current user
-  fileSrc: "",
+  src: "",
 };
 
 function EditDocPage() {
+  const dispatch = useDispatch();
+  const { docId } = useParams();
+  const { category } = useSelector((state) => state.category);
+
+  const [cateOptions, setCateOptions] = useState([]);
+  // const [userData, setUserData] = useState([]); //userInfo
+  const [initVal, setInitVal] = useState({});
+
+  const fetchAllCate = (arr) => {
+    const categories = [];
+    arr.map((cate) => {
+      categories.push({
+        value: cate.name,
+        label: cate.name,
+        id: cate.id,
+      });
+    });
+    return categories;
+  };
+
+  const fetchDocData = async () => {
+    try {
+      const { data } = await documentAPI.get(9);
+      const doc = data[0];
+      const newInitVal = {};
+      setInitVal((initVal) => ({
+        ...initVal,
+        name: doc.name,
+        avt: doc.avt,
+        username: doc.username,
+        categories: doc.categories,
+        categoriesID: [],
+        thumbnail: doc.thumbnail,
+        desc: doc.desc,
+        src: doc.src,
+        uploadTime: moment(doc.created_at).format("DD/MMM/YY"),
+      }));
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    dispatch(getAllCate());
+  }, []);
+
+  useEffect(() => {
+    fetchDocData();
+    setCateOptions(fetchAllCate(category));
+  }, [category]);
+
+  console.log("main", initVal);
+
   const [data, setData] = useState(initVal);
+
   return (
     <>
-      <div>EDIT DOCUMENT</div>
-      <DocEditForm
+      <h3>EDIT DOCUMENT</h3>
+      <DocUpdateForm
         setData={setData}
-        initVal={initVal}
+        initDocData={initVal}
         cateOptions={cateOptions}
-        authorOptions={authorOptions}
       />
 
       <button
         onClick={() => {
-          console.log(data);
+          console.log("update", data);
+          // fetchDocData();
         }}
       >
         UPDATE
