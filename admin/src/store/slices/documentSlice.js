@@ -4,6 +4,7 @@ import {
   getDocument,
   update,
   newDocument,
+  getAllPendingDocument,
 } from "../actions/documentAction";
 
 const initialState = {
@@ -76,6 +77,20 @@ const documentSlice = createSlice({
       };
     },
     [getAllDocument.rejected]: (state, { payload }) => {
+      return { loading: false, error: payload };
+    },
+
+    [getAllPendingDocument.pending]: (state) => {
+      state.loading = true;
+    },
+    [getAllPendingDocument.fulfilled]: (state, { payload }) => {
+      return {
+        loading: false,
+        document: payload,
+        success: true,
+      };
+    },
+    [getAllPendingDocument.rejected]: (state, { payload }) => {
       return { loading: false, error: payload };
     },
   },

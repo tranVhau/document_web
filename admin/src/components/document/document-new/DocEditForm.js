@@ -14,7 +14,6 @@ function DocEditForm(props) {
     setInputData(props.initValues);
   }, [props.initValues]);
 
-  console.log("initVal", inputData);
   useEffect(() => {
     props.setData(inputData);
   }, [inputData, props]);
@@ -88,8 +87,6 @@ function DocEditForm(props) {
       };
     });
   };
-
-  console.log("edit form", inputData);
 
   return (
     <>

@@ -6,8 +6,7 @@ import moment from "moment";
 
 import { NavLink } from "react-router-dom";
 
-function Table({ columns, data, isDoc, setRowSelected, navi, pending }) {
-  const createdtitle = pending ? "Upload Time" : "Publish Time";
+function Table({ columns, data, isDoc, setRowSelected, navi }) {
   const tableBtn = (hooks) => {
     hooks.visibleColumns.push((columns) => [
       ...columns,
@@ -28,7 +27,7 @@ function Table({ columns, data, isDoc, setRowSelected, navi, pending }) {
         },
       },
       {
-        Header: createdtitle,
+        Header: "Aprroved At",
         accessor: "updated_at",
         id: "publish",
         Cell: (row) => {
@@ -44,49 +43,20 @@ function Table({ columns, data, isDoc, setRowSelected, navi, pending }) {
         accessor: "Action",
         id: "action0",
         Cell: (row) => {
-          if (isDoc) {
-            return (
-              <div>
-                <NavLink
-                  to={navi + "/" + row.row.original.id}
-                  className={classes.edit_btn}
-                  onClick={() =>
-                    setRowSelected({
-                      id: row.row.original.id,
-                    })
-                  }
-                >
-                  edit
-                </NavLink>
-                <div
-                  className={classes.del_btn}
-                  onClick={() =>
-                    setRowSelected({
-                      id: row.row.original.id,
-                      status: "delete",
-                    })
-                  }
-                >
-                  Delete
-                </div>
-              </div>
-            );
-          } else {
-            return (
-              <NavLink
-                to={navi + "/" + row.row.original.id}
-                className={classes.view_btn}
-                onClick={() =>
-                  setRowSelected({
-                    id: row.row.original.id,
-                    name: row.row.original.name,
-                  })
-                }
-              >
-                view
-              </NavLink>
-            );
-          }
+          return (
+            <NavLink
+              to={navi + "/" + row.row.original.id}
+              className={classes.view_btn}
+              onClick={() =>
+                setRowSelected({
+                  id: row.row.original.id,
+                  name: row.row.original.name,
+                })
+              }
+            >
+              view
+            </NavLink>
+          );
         },
       },
     ]);

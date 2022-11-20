@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./asset/css/StandardMain.module.css";
 
-import Table from "../components/tables/Table";
 import Button from "../components/UI/Button";
 import DocumentTable from "../components/tables/DocumentTable";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { getAllPendingDocument } from "../store/actions/documentAction";
+
 function PendingPostPage() {
+  const [rowSelected, setRowSelected] = useState({});
   const columns = React.useMemo(
     () => [
       {
@@ -23,81 +27,17 @@ function PendingPostPage() {
     ],
     []
   );
-  const data = React.useMemo(
-    () => [
-      {
-        firstname: "firstname1",
-        lastName: "hau1",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname10",
-        lastName: "hau2",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname9",
-        lastName: "hau3",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname8",
-        lastName: "hau4",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname7",
-        lastName: "hau5",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname6",
-        lastName: "hau6",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname5",
-        lastName: "hau7",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname4",
-        lastName: "hau8",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname3",
-        lastName: "hau9",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname2",
-        lastName: "hau10",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-    ],
-    []
-  );
+
+  const dispatch = useDispatch();
+  const { document } = useSelector((state) => state.document);
+
+  const fetchAllDocument = () => {
+    dispatch(getAllPendingDocument());
+  };
+
+  useEffect(() => {
+    fetchAllDocument();
+  }, []);
 
   return (
     <>
@@ -120,8 +60,9 @@ function PendingPostPage() {
             </div>
             <DocumentTable
               columns={columns}
-              data={data}
-              navi="/edit-doc"
+              data={document}
+              navi="/pending-action"
+              pending={true}
             ></DocumentTable>
           </div>
         </div>

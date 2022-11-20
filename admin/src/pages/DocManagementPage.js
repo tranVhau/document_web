@@ -84,6 +84,7 @@ function DocManagementPage() {
               isDoc={true}
               navi="/edit-doc"
               setRowSelected={setRowSelected}
+              pending={false}
             ></DocumentTable>
           </div>
         </div>

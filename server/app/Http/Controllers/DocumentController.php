@@ -28,6 +28,7 @@ class DocumentController extends Controller
         $documents = DB::table('documents')
                     ->join('users', 'users.id','=','documents.user_id')
                     ->select('documents.*'  ,'users.name as username', 'users.avt')
+                    ->where('documents.isPublic','=',1)
                     ->get();
 
         // add the array space to store all document category
@@ -124,7 +125,7 @@ class DocumentController extends Controller
         $documents = DB::table('documents')
                     ->join('users', 'users.id','=','documents.user_id')
                     ->select('documents.*'  ,'users.name as username', 'users.avt')
-                    ->where('documents.id','=',$id)
+                    ->where([['documents.id','=',$id],['documents.isPublic','=',1]])
                     ->get();
 
         // add the array space to store all document category
@@ -169,6 +170,10 @@ class DocumentController extends Controller
             }
             if($request->desc!=null){
                 $document->desc = $request->desc;
+            }
+
+            if($request->isPublic!=null){
+                $document->isPublic = $request->isPublic;
             }
     
             if($request->src !=null){
@@ -233,5 +238,86 @@ class DocumentController extends Controller
             ], 404);
         }
        
+    }
+
+    public function pending()
+    {
+        $category = DB::table('document_categories')
+                    ->join('categories', 'categories.id','=','document_categories.category_id')
+                    ->select('document_categories.document_id', 'categories.name as category_name')
+                    ->get();
+        
+
+        $documents = DB::table('documents')
+                    ->join('users', 'users.id','=','documents.user_id')
+                    ->select('documents.*'  ,'users.name as username', 'users.avt')
+                    ->where('documents.isPublic','=',0)
+                    ->get();
+
+        // add the array space to store all document category
+
+        forEach($documents as $element){
+            $element->categories = array();
+        }
+
+        
+        forEach( $documents as $doc){
+           forEach($category as $cate){
+            if($cate->document_id == $doc->id){
+                array_push($doc->categories,$cate->category_name);
+            }
+           }
+        }
+
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $documents,
+        ], 200 );
+    }
+
+    public function showpending($id)
+    {
+        $document = Document::find($id);
+
+
+        $category = DB::table('document_categories')
+            ->join('categories', 'categories.id','=','document_categories.category_id')
+            ->select('document_categories.document_id', 'categories.name as category_name')
+            ->where('document_categories.document_id','=',$id)
+            ->get();
+        
+
+        $documents = DB::table('documents')
+                    ->join('users', 'users.id','=','documents.user_id')
+                    ->select('documents.*'  ,'users.name as username', 'users.avt')
+                    ->where([['documents.id','=',$id],['documents.isPublic','=',0]])
+                    ->get();
+
+        // add the array space to store all document category
+        forEach($documents as $element){
+            $element->categories = array();
+        }
+        forEach( $documents as $doc){
+            forEach($category as $cate){
+             if($cate->document_id == $doc->id){
+                 array_push($doc->categories,$cate->category_name);
+             }
+            }
+         }
+        
+
+
+        if($document){
+            return response()->json([
+                'status' => 'success',
+                'data' => $documents,
+            ], 200 );
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'document not found',
+            ], 404);
+        }
     }
 }

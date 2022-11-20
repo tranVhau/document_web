@@ -21,8 +21,9 @@ class ApprovedLogController extends Controller
 
         $approved_logs = DB::table('documents')
             ->join('approved_logs','approved_logs.document_id','=','documents.id')
-            ->join('users','users.id','=','approved_logs.user_id')
-            ->select('documents.id','documents.name', 'documents.thumbnail','documents.src', 'documents.desc', 'approved_logs.created_at','users.avt', 'users.name as admin_name')
+            ->join('users as user','user.id','=','approved_logs.user_id')
+            ->join('users as admin', 'admin.id','=','documents.user_id')
+            ->select('documents.id','documents.name', 'documents.thumbnail','documents.src', 'documents.desc', 'approved_logs.created_at','admin.avt as admin_avt', 'admin.name as admin_name', 'user.name as user')
             ->get();
             
         return response()->json([

@@ -10,6 +10,7 @@ import NewDocPage from "./pages/NewDocPage";
 import EditDocPage from "./pages/EditDocPage";
 import ApprovedLogPage from "./pages/ApprovedLogPage";
 import PendingPostPage from "./pages/PendingPostPage";
+import PendingAction from "./pages/PendingAction";
 import AuthPage from "./pages/auth/AuthPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="edit-doc/:id" element={<EditDocPage />} />
         <Route path="approved-log" element={<ApprovedLogPage />} />
         <Route path="pending-post" element={<PendingPostPage />} />
+        <Route path="pending-action/:id" element={<PendingAction />} />
       </Route>
       <Route path="/login" element={<AuthPage />} />
       <Route path="/" element={<AuthPage />} />

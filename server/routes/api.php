@@ -35,6 +35,8 @@ Route::controller(DocumentController::class)->group(function () {
     Route::get('document/{id}', 'show');
     Route::put('document/{id}', 'update');
     Route::delete('document/{id}', 'destroy');
+    Route::get('documents/pending', 'pending');
+    Route::get('document/pending/{id}', 'showpending');
 }); 
 
 

@@ -81,13 +81,14 @@ function NewDocPage() {
     });
     dispatch(newDocument({ document: formData }));
     if (success) {
-      toast("New Author Added", {
+      toast("New Document Added", {
         type: "success",
       });
       setTimeout(() => {
         navigate("/doc-manage");
       }, 1500);
     }
+    console.log(data);
   };
 
   return (

@@ -19,6 +19,22 @@ export const getAllDocument = createAsyncThunk(
   }
 );
 
+export const getAllPendingDocument = createAsyncThunk(
+  "document/getAllDocument",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const res = await documentAPI.getAllPending();
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
 // get specify document
 
 export const getDocument = createAsyncThunk(

@@ -1,31 +1,28 @@
 import React from "react";
 import classes from "./asset/css/StandardMain.module.css";
 
-import Table from "../components/tables/Table";
+import HistoryTable from "../components/tables/HistoryTable";
 import Button from "../components/UI/Button";
 
 function ApprovedLogPage() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "First Name",
-        accessor: "firstname",
+        Header: "ID",
+        accessor: "id",
       },
       {
-        Header: "Last Name",
-        accessor: "lastName",
+        Header: "Name",
+        accessor: "name",
       },
       {
-        Header: "Age",
-        accessor: "age",
+        Header: "Contributor",
+        accessor: "Contributor",
       },
+
       {
-        Header: "City",
-        accessor: "city",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
+        Header: "Approved by",
+        accessor: "approved",
       },
     ],
     []
@@ -117,16 +114,9 @@ function ApprovedLogPage() {
         <div className={classes.tile}>
           <div className={classes.tile_body}>
             <div className={`${classes.row} ${classes.element_button}`}>
-              <div className={classes.col_sm_2}>
-                <Button
-                  className={classes.add_btn}
-                  onClick={() => alert("add btn effected")}
-                >
-                  Add
-                </Button>
-              </div>
+              <div className={classes.col_sm_2}></div>
             </div>
-            <Table columns={columns} data={data}></Table>
+            <HistoryTable columns={columns} data={data}></HistoryTable>
           </div>
         </div>
       </div>
