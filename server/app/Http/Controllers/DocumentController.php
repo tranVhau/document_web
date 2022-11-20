@@ -159,7 +159,7 @@ class DocumentController extends Controller
         $request->validate([
             'name' => 'string|max:255|nullable',
             'desc' => 'string|nullable',
-            'src'=> "mimetypes:application/pdf|max:10000|nullable",
+            'src'=> "mimetypes:application/pdf|max:100000|nullable",
         ]);
 
         if(Document::find($id)){
@@ -183,6 +183,24 @@ class DocumentController extends Controller
                 $document->src = $documentClound->getPath();
                 $document->thumbnail = $thumbnailClound;
             }
+            // document_category::create([
+            //     'category_id' => $request->category_id,
+            //     'document_id' => $request->document_id,
+            // ]);
+
+            if($request->categories!=null ){
+                DB::table('document_categories')
+                ->where([['document_id','=', $id]])->delete();
+
+                foreach($request->categories as $requestCateId){
+                    document_category::create([
+                        'category_id' => $requestCateId,
+                        'document_id' =>$id,
+                    ]);
+                }
+               
+            }
+
             $document->save();
     
             return response()->json([
@@ -190,7 +208,7 @@ class DocumentController extends Controller
                 'message' => 'Document updated successfully',
                 'data' => $document,
             ], 200 );
-        }else{
+            }else{
             return response()->json([
                 'status' => 'error',
                 'message' => 'Document Not Found',

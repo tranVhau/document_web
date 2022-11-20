@@ -2,15 +2,23 @@ import React from "react";
 import classes from "./DocumentItem.module.css";
 import { NavLink } from "react-router-dom";
 
+import LoadingSpinner from "../../UI/LoadingSpinner";
+
 function DocumentItem(props) {
   return (
     <div className={classes.post_item}>
       <div className={classes.post_media}>
-        <img
-          src={props.postData.thumbnail}
-          alt="image not found"
-          className={classes.post_image}
-        />
+        <div className={classes.image_wrap}>
+          {props.postData.thumbnail ? (
+            <img
+              src={props.postData.thumbnail}
+              alt="image not found"
+              className={classes.post_image}
+            />
+          ) : (
+            <LoadingSpinner className="center" />
+          )}
+        </div>
       </div>
       <div className={classes.post_info}>
         <div>
@@ -31,11 +39,15 @@ function DocumentItem(props) {
         </NavLink>
         <div className={classes.post_desc}>{props.postData.desc}</div>
         <div className={classes.post_author}>
-          <img
-            src={props.postData.avt}
-            alt=""
-            className={classes.post_author_image}
-          />
+          {props.postData.avt ? (
+            <img
+              src={props.postData.avt}
+              alt=""
+              className={classes.post_author_image}
+            />
+          ) : (
+            ""
+          )}
           <div className={classes.post_author_info}>
             <h4 className={classes.post_author_name}>
               {props.postData.username}

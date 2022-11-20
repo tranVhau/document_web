@@ -15,7 +15,7 @@ import { getAllCate } from "../store/actions/categoryAction";
 
 const initValue = {
   name: "Comic Name Here",
-  thumbnail: require("./asset/img/default_2.png"),
+  thumbnail: require("./asset/img/defaultThumnail.png"),
   categories: ["cate1", "cate2", "..."],
   categoriesID: [],
   desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio nemo quae in delectus quod atque sunt recusandae accusantium optio. Soluta omnis quod ut quibusdam, reprehenderit ipsam in assumenda magni eaque?",
@@ -94,7 +94,7 @@ function NewDocPage() {
     <>
       <DocEditForm
         setData={setData}
-        initVal={initVal}
+        initValues={initVal}
         cateOptions={cateOptions}
       />
 

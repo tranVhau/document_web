@@ -23,7 +23,12 @@ function Footer() {
           <NavLink className={classes.footer__link}>Contact Us</NavLink>
         </li>
       </ul>
-      <div className={classes.footer__logo}>LOGO</div>
+      <div className={classes.footer__logo}>
+        <img
+          className={classes.footer__logo}
+          src={require("../header/asset/LogoDocumentWeb.png")}
+        />
+      </div>
       <p className={classes.footer__copyright}>
         &copy; Copyright by Group TTTN
       </p>

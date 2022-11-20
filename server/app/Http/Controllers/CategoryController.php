@@ -75,10 +75,10 @@ class CategoryController extends Controller
         ],['name'=>'category has been taken']);
 
     
-        $category = Category::find($id);
+        $category = Category::where('id', $id)->update(array_filter($request->all()));
         if($category){
-            $category->name = $request->name;
-            $category->save();
+            // $category->name = $request->name;
+            // $category->save();
             return response()->json([
                 'status' => 'success',
                 'message' => 'category updated successfully',
@@ -88,7 +88,6 @@ class CategoryController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'category not found',
-
             ], 404);
         }
     

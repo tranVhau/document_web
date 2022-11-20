@@ -62,7 +62,7 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
                   onClick={() =>
                     setRowSelected({
                       id: row.row.original.id,
-                      name: row.row.original.name,
+                      status: "delete",
                     })
                   }
                 >
@@ -72,7 +72,8 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
             );
           } else {
             return (
-              <div
+              <NavLink
+                to={navi + "/" + row.row.original.id}
                 className={classes.view_btn}
                 onClick={() =>
                   setRowSelected({
@@ -82,7 +83,7 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
                 }
               >
                 view
-              </div>
+              </NavLink>
             );
           }
         },

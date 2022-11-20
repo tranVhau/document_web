@@ -7,9 +7,14 @@ import PdfSection from "../pdf/PdfSection";
 import classes from "../../../pages/asset/css/NewDocPage.module.css";
 
 function DocEditForm(props) {
-  const [inputData, setInputData] = useState(props.initVal);
-  const [pdfFile, setPdfFile] = useState(props.initVal.src);
+  const [inputData, setInputData] = useState(props.initValues);
+  const [pdfFile, setPdfFile] = useState(props.initValues.src);
 
+  useEffect(() => {
+    setInputData(props.initValues);
+  }, [props.initValues]);
+
+  console.log("initVal", inputData);
   useEffect(() => {
     props.setData(inputData);
   }, [inputData, props]);
@@ -82,9 +87,9 @@ function DocEditForm(props) {
         [name]: pdf,
       };
     });
-
-    console.log(inputData);
   };
+
+  console.log("edit form", inputData);
 
   return (
     <>
@@ -95,17 +100,6 @@ function DocEditForm(props) {
         </div>
         <div className={classes.input_section}>
           <form className={classes.doc_form_info}>
-            {/* <div className={classes.author_section}>
-              <h1>Author</h1>
-              <div>
-                <Select
-                  placeholder={"Select Author..."}
-                  closeMenuOnSelect={true}
-                  options={props.authorOptions}
-                  onChange={authorInputHandler}
-                />
-              </div>
-            </div> */}
             <div className={classes.doc_section}>
               <h2>Document</h2>
               <div>
@@ -118,14 +112,6 @@ function DocEditForm(props) {
                   onChange={formInputHandler}
                 ></input>
               </div>
-              {/* <div>
-                <label>Thumbnail</label>
-                <input
-                  name="thumbnail"
-                  type={"file"}
-                  onChange={inputIMGHandler}
-                ></input>
-              </div> */}
               <div>
                 <label>Categories</label>
                 <div className={classes.cate_choose}>

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DocUpdateForm from "../components/document/document-new/DocUpdateFrom";
-import { useParams } from "react-router-dom";
+import { useParams, navigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getAllCate } from "../store/actions/categoryAction";
-import { getAllDocument, getDocument } from "../store/actions/documentAction";
+import { update } from "../store/actions/documentAction";
 import documentAPI from "../api/documentAPI";
 import moment from "moment";
 
@@ -24,9 +24,11 @@ const initValue = {
 };
 
 function EditDocPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { docId } = useParams();
+  const { id } = useParams();
   const { category } = useSelector((state) => state.category);
+  const { success, error, loading } = useSelector((state) => state.document);
 
   const [cateOptions, setCateOptions] = useState([]);
   // const [userData, setUserData] = useState([]); //userInfo
@@ -46,9 +48,8 @@ function EditDocPage() {
 
   const fetchDocData = async () => {
     try {
-      const { data } = await documentAPI.get(9);
+      const { data } = await documentAPI.get(id);
       const doc = data[0];
-      const newInitVal = {};
       setInitVal((initVal) => ({
         ...initVal,
         name: doc.name,
@@ -73,9 +74,33 @@ function EditDocPage() {
     setCateOptions(fetchAllCate(category));
   }, [category]);
 
-  console.log("main", initVal);
-
   const [data, setData] = useState(initVal);
+
+  const updateDocumentHandler = () => {
+    const formData = new FormData();
+    formData.append("document_id", id);
+    formData.append("name", data.name);
+    formData.append("desc", data.desc);
+    typeof data.src == "string"
+      ? formData.append("src", "")
+      : formData.append("src", data.src);
+    data.categoriesID.forEach((cateID) => {
+      formData.append("categories[]", cateID);
+    });
+    dispatch(update({ id: id, document: formData }));
+    if (success) {
+      toast("Update Successfully", {
+        type: "success",
+      });
+      setTimeout(() => {
+        navigate("/doc-manage");
+      }, 1500);
+    } else {
+      toast("Update Failed", {
+        type: "error",
+      });
+    }
+  };
 
   return (
     <>
@@ -86,14 +111,8 @@ function EditDocPage() {
         cateOptions={cateOptions}
       />
 
-      <button
-        onClick={() => {
-          console.log("update", data);
-          // fetchDocData();
-        }}
-      >
-        UPDATE
-      </button>
+      <button onClick={updateDocumentHandler}>UPDATE</button>
+      <ToastContainer position="bottom-right" newestOnTop />
     </>
   );
 }

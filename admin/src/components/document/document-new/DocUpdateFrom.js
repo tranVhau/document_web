@@ -10,8 +10,11 @@ function DocUpdateForm(props) {
   const [inputData, setInputData] = useState(props.initDocData);
   const [pdfFile, setPdfFile] = useState(props.initDocData.src);
 
-  console.log("edit", props.initDocData.categories);
-  console.log("option", props.cateOptions);
+  useEffect(() => {
+    setInputData(props.initDocData);
+    setPdfFile(props.initDocData.src);
+  }, [props.initDocData]);
+
   useEffect(() => {
     props.setData(inputData);
   }, [inputData, props]);
@@ -75,6 +78,7 @@ function DocUpdateForm(props) {
       return {
         ...prev,
         [name]: pdf,
+        thumbnail: require("../../../pages/asset/img/defaultThumnail.png"),
       };
     });
   };
@@ -84,7 +88,7 @@ function DocUpdateForm(props) {
         <div className={classes.preview_section}>
           <h2>Preview Document Tag</h2>
           <DocumentItem
-            postData={props.initDocData}
+            postData={inputData}
             // author={props.initDocData}
           />
         </div>
@@ -99,7 +103,7 @@ function DocUpdateForm(props) {
                   className={classes.author_name_input}
                   name="name"
                   type={"text"}
-                  //   defaultValue={[props.cateOptions[0]]}
+                  defaultValue={props.initDocData.name}
                   onChange={formInputHandler}
                 ></input>
               </div>
@@ -136,7 +140,7 @@ function DocUpdateForm(props) {
               <div>
                 <label>File</label>
                 <input
-                  name="fileSrc"
+                  name="src"
                   type={"file"}
                   onChange={inputPDFHandler}
                 ></input>
@@ -147,7 +151,7 @@ function DocUpdateForm(props) {
       </div>
       <div>
         <h2>Preview Document</h2>
-        <PdfSection urlFile={pdfFile ? pdfFile : props.initDocData.src} />
+        <PdfSection urlFile={pdfFile} />
       </div>
     </>
   );

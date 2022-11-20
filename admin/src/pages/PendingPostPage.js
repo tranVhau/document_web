@@ -3,34 +3,26 @@ import classes from "./asset/css/StandardMain.module.css";
 
 import Table from "../components/tables/Table";
 import Button from "../components/UI/Button";
+import DocumentTable from "../components/tables/DocumentTable";
 
 function PendingPostPage() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "First Name",
-        accessor: "firstname",
+        Header: "ID",
+        accessor: "id",
       },
       {
-        Header: "Last Name",
-        accessor: "lastName",
+        Header: "Name",
+        accessor: "name",
       },
       {
-        Header: "Age",
-        accessor: "age",
-      },
-      {
-        Header: "City",
-        accessor: "city",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
+        Header: "Contributor",
+        accessor: "username",
       },
     ],
     []
   );
-
   const data = React.useMemo(
     () => [
       {
@@ -126,7 +118,11 @@ function PendingPostPage() {
                 </Button>
               </div>
             </div>
-            <Table columns={columns} data={data}></Table>
+            <DocumentTable
+              columns={columns}
+              data={data}
+              navi="/edit-doc"
+            ></DocumentTable>
           </div>
         </div>
       </div>

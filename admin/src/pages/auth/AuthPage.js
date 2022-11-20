@@ -33,7 +33,7 @@ const AuthForm = () => {
       });
       setTimeout(() => {
         navigate("/dashboard");
-      }, 3000);
+      }, 2000);
     }
     // navigate("/dashboard");
   }, [userToken, navigate]);

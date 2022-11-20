@@ -49,7 +49,20 @@ const documentSlice = createSlice({
       state.error = payload;
     },
 
-    //delete
+    //update
+
+    [update.pending]: (state) => {
+      state.loading = true;
+    },
+    [update.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.success = true;
+      // state.document = state.document.push(payload);
+    },
+    [update.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
 
     // getAll document
     [getAllDocument.pending]: (state) => {

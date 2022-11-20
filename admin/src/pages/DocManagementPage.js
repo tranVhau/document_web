@@ -8,7 +8,9 @@ import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAllDocument } from "../store/actions/documentAction";
+import { getAllDocument, delDocument } from "../store/actions/documentAction";
+import "react-alert-confirm/dist/index.css";
+import confirm from "react-alert-confirm";
 
 function DocManagementPage() {
   const [rowSelected, setRowSelected] = useState({});
@@ -41,6 +43,25 @@ function DocManagementPage() {
     fetchAllDocument();
   }, []);
 
+  const deleteDocHandler = () => {
+    dispatch(delDocument(rowSelected.id));
+    toast("Document Delete Successfully", {
+      type: "success",
+    });
+    fetchAllDocument();
+  };
+
+  useEffect(() => {
+    if (rowSelected.status === "delete") {
+      confirm({
+        title: "Delete",
+        language: "en",
+        content: <h2>Confirm To Delete</h2>,
+        onOk: deleteDocHandler,
+      });
+    }
+  }, [rowSelected]);
+
   return (
     <>
       <div className={classes.main_title}>
@@ -67,6 +88,7 @@ function DocManagementPage() {
           </div>
         </div>
       </div>
+      <ToastContainer position="bottom-right" newestOnTop />
     </>
   );
 }
