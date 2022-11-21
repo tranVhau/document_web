@@ -1,43 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Items from "./Items";
-import DocumentItem from "../DocumentItem";
 
 import classes from "./PaginatedItem.module.css";
-import classes_1 from "../../../pages/SearchPage.module.css";
-// Example items, to simulate fetching from another resources.
-const items = [
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-  <DocumentItem />,
-];
+import classes_1 from "../../../pages/asset/css/SearchPage.module.css";
 
-function PaginatedItems({ itemsPerPage }) {
+function PaginatedItems({ itemsPerPage, data }) {
+  const [items, setItem] = useState(data);
+
+  useEffect(() => {
+    setItem(data);
+  }, [data]);
+
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
@@ -52,14 +26,13 @@ function PaginatedItems({ itemsPerPage }) {
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(items.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
+  }, [itemOffset, itemsPerPage, items]);
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number (event.selected) ${event.selected}, which is offset (newOffset) ${newOffset}`
-    );
+    // console.log(
+    //   `User requested page number (event.selected) ${event.selected}, which is offset (newOffset) ${newOffset}`
+    // );
     setItemOffset(newOffset);
   };
 
@@ -72,7 +45,7 @@ function PaginatedItems({ itemsPerPage }) {
         breakLabel="..."
         nextLabel="»"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={1}
         pageCount={pageCount}
         previousLabel="«"
         renderOnZeroPageCount={null}

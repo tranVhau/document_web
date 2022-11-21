@@ -11,6 +11,8 @@ import { newDocument } from "../store/actions/documentAction";
 import { getUserInfo } from "../store/actions/userAction";
 import { getAllCate } from "../store/actions/categoryAction";
 
+import classes from "../components/UI/Button.module.css";
+
 // react-select
 
 const initValue = {
@@ -99,7 +101,11 @@ function NewDocPage() {
         cateOptions={cateOptions}
       />
 
-      <button onClick={newDocumentHandler}>SAVE</button>
+      <div className={classes.btn_wrap}>
+        <button className={classes.save__btn} onClick={newDocumentHandler}>
+          SAVE
+        </button>
+      </div>
 
       <ToastContainer position="bottom-right" newestOnTop />
     </>

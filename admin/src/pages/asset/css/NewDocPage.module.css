@@ -14,6 +14,9 @@
 
 .doc_form_info label {
   display: block;
+  margin-top: 1rem;
+  font-size: large;
+  font-weight: bold;
 }
 
 .author_section {
@@ -71,4 +74,17 @@ textarea {
   border-top: 1px solid gray;
   height: 4px;
   border-bottom: 1px solid gray;
+}
+
+.preview__doc {
+  padding: 0 2rem;
+}
+
+::-webkit-file-upload-button {
+  background: rgb(32, 119, 249);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  padding: 1em;
+  border-radius: 10px;
+  border: none;
 }

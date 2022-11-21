@@ -11,7 +11,7 @@ function PdfSection() {
   return (
     <Document
       file={{
-        url: "https://res.cloudinary.com/dy9g317c9/image/upload/v1666028586/document_web/document/sample_g2ckyy.pdf",
+        url: "http://res.cloudinary.com/dy9g317c9/image/upload/v1669030135/document_web/document/e1ljhjf2vlpcslfjztls.pdf",
       }}
       onLoadSuccess={onDocumentLoadSuccess}
     >

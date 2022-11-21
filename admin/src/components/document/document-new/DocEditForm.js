@@ -132,17 +132,20 @@ function DocEditForm(props) {
               </div>
               <div>
                 <label>File</label>
-                <input
-                  name="src"
-                  type={"file"}
-                  onChange={inputPDFHandler}
-                ></input>
+                <div className={classes.filebtn_wrapper}>
+                  <input
+                    className={classes.uploadbtn}
+                    name="src"
+                    type={"file"}
+                    onChange={inputPDFHandler}
+                  ></input>
+                </div>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <div>
+      <div className={classes.preview__doc}>
         <h2>Preview Document</h2>
         <PdfSection urlFile={pdfFile} />
       </div>

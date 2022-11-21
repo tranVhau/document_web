@@ -2,48 +2,45 @@ import React from "react";
 
 import classes from "../DocumentItem.module.css";
 
-function SlideBar() {
+function SlideBar(props) {
   return (
     <div className={classes.post_feature}>
-      <a
-        href="#"
-        className={`${classes.post_feature_media} ${classes.post_media}`}
-      >
+      <div className={`${classes.post_feature_media} ${classes.post_media}`}>
         <img
-          src="https://static.lag.vn/upload/news/22/02/14/knyyy-1-1024x724_PUHV.jpg?w=800&encoder=wic&subsampling=444"
-          alt=""
+          src={props.item.thumbnail}
+          alt="something went wrong"
           className={classes.post_feature_image}
         />
-      </a>
+      </div>
       <div className={classes.post_feature_info}>
-        <a href="#" className={classes.post_category}>
-          Kinh dị, Giả tưởng, siêu nhiên
-        </a>
+        {props.item.categories.map((cate, index) => {
+          return (
+            <div className={classes.post_category} key={index}>
+              {cate}
+            </div>
+          );
+        })}
         <h2>
-          <a
-            href="#"
+          <div
             className={`${classes.post_feature_title} ${classes.post_title}`}
           >
-            Kimetsu No Yaiba
-          </a>
+            {props.item.name}
+          </div>
         </h2>
-        <p className={classes.post_desc}>
-          Truyện kể về hành trình trở thành kiếm sĩ diệt quỷ của thiếu niên
-          Kamado Tanjirō sau khi gia đình cậu bị quỷ sát hại và em gái Nezuko
-          của cậu bị biến thành quỷ. Và cả 2 đã lên đường tìm cách cho người em
-          trở lại thành người
-        </p>
-        <a href="#" className={classes.post_author}>
+        <p className={classes.post_desc}>{props.item.desc}</p>
+        <div className={classes.post_author}>
           <img
-            src="https://gamek.mediacdn.vn/133514250583805952/2021/2/5/kmss1-16125223517951309982427.jpg"
-            alt=""
+            src={props.item.avt}
+            alt="something went wrong"
             className={classes.post_author_image}
           />
           <div className={classes.post_author_info}>
-            <h4 className={classes.post_author_name}>Gotoge Koyoharu</h4>
-            <time className={classes.post_author_time}>Just now</time>
+            <h4 className={classes.post_author_name}>{props.item.author}</h4>
+            <time className={classes.post_author_time}>
+              {props.item.created_at}
+            </time>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   );

@@ -56,8 +56,24 @@ export const getUserInfo = createAsyncThunk(
   "user/me",
   async (arg, { rejectWithValue }) => {
     try {
-      const data = await authAPI.me(`http://localhost:8000/api/auth/me`);
+      const data = await authAPI.me();
       return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const getAllUsers = createAsyncThunk(
+  "user/getAllUser",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const data = await authAPI.getAll();
+      return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

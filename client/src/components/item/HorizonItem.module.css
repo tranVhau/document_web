@@ -27,6 +27,7 @@ img {
   margin-bottom: 10px;
   position: relative;
   border-radius: 10px;
+  margin: 0 2px;
 }
 .post_category:after {
   content: "";
@@ -146,4 +147,21 @@ img {
     font-size: 25px;
     line-height: 1.3;
   }
+}
+
+.cate_tag::before {
+  content: "";
+  padding: 5px;
+  margin: 0 10px 0 0;
+  width: 3px;
+  height: 26px;
+  background: linear-gradient(
+    2000deg,
+    var(--heading_custom_border_color_1, rgb(99, 192, 254)),
+    var(--heading_custom_border_color_2, #2e5789)
+  );
+  border-radius: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
 }

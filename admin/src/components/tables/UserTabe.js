@@ -1,41 +1,27 @@
 import React from "react";
-
 import { useTable, usePagination, useGlobalFilter } from "react-table";
 import classes from "./TableStyle.module.css";
-import moment from "moment";
 
 import { NavLink } from "react-router-dom";
 
-function Table({ columns, data, isDoc, setRowSelected, navi }) {
+function Usertable({ columns, data, setRowSelected, navi }) {
   const tableBtn = (hooks) => {
     hooks.visibleColumns.push((columns) => [
       ...columns,
       {
-        Header: "Thumbnail",
-        accessor: "thumbnail",
+        Header: "Avatar",
+        accessor: "avt",
         id: "thumb",
         Cell: (row) => {
           return (
             <div className={classes.img_wrapper}>
               <img
                 className={classes.img}
-                alt="document thumbnail"
-                src={row.row.original.thumbnail}
+                alt="user avt"
+                src={row.row.original.avt}
               ></img>
             </div>
           );
-        },
-      },
-      {
-        Header: "Aprroved At",
-        accessor: "created_at",
-        id: "publish",
-        Cell: (row) => {
-          const date = moment(row.row.original.created_at).format(
-            "DD/MMM/YYYY-HH:MM"
-          );
-
-          return <div>{date}</div>;
         },
       },
       {
@@ -61,7 +47,6 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
       },
     ]);
   };
-
   const tableInstance = useTable(
     {
       columns: columns,
@@ -175,4 +160,4 @@ function Table({ columns, data, isDoc, setRowSelected, navi }) {
     </>
   );
 }
-export default Table;
+export default Usertable;

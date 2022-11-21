@@ -23,6 +23,11 @@ const authAPI = {
       data: userData,
     });
   },
+
+  getAll: () => {
+    const url = "http://localhost:8000/api/users";
+    return axiosClient.get(url);
+  },
 };
 
 export default authAPI;

@@ -28,7 +28,7 @@ class ApprovedLogController extends Controller
             
         return response()->json([
             'status' => 'success',
-            'approved_logs' => $approved_logs,
+            'data' => $approved_logs,
         ]);
     }
 
@@ -56,7 +56,7 @@ class ApprovedLogController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Approved_log created successfully',
-                'approved_log' => $approved_log,
+                'data' => $approved_log,
             ]);
         }else{
             return response()->json([

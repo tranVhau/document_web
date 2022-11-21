@@ -13,17 +13,26 @@ function DashBoardPage() {
         <p className={classes.font_weight_bold}>DASHBOARD</p>
       </div>
       <div className={classes.info_cards}>
-        <StatisticCard title={"likes"} value={14212} />
-        <StatisticCard title={"likes"} value={14212} />
-        <StatisticCard title={"likes"} value={14212} />
-        <StatisticCard title={"likes"} value={14212} />
+        <StatisticCard title={"Documents"} value={20} />
+        <StatisticCard title={"AVG Rate"} value={4.7} />
+        <StatisticCard title={"Users"} value={20} />
+        <StatisticCard title={"Pending Posts"} value={10} />
       </div>
       <>
-        <div>
-          <BarChart />
-        </div>
-        <div>
-          <LineChart />
+        <div className={classes.charts}>
+          <div className={classes.charts_card}>
+            <p className={classes.chart_title}>Top 5 Document</p>
+            <div id="bar-chart">
+              <BarChart />
+            </div>
+          </div>
+
+          <div className={classes.charts_card}>
+            <p className={classes.chart_title}>Pending Posts</p>
+            <div id="area_chart">
+              <LineChart />
+            </div>
+          </div>
         </div>
       </>
     </>

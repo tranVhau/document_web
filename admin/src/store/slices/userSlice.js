@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, getUserInfo } from "../actions/userAction";
+import { userLogin, getUserInfo, getAllUsers } from "../actions/userAction";
 
 const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
@@ -11,6 +11,7 @@ const initialState = {
   userToken,
   error: null,
   success: false,
+  users: [],
 };
 
 const userSlice = createSlice({
@@ -44,6 +45,22 @@ const userSlice = createSlice({
     },
     [getUserInfo.rejected]: (state, { payload }) => {
       state.loading = false;
+    },
+
+    // get All user
+
+    [getAllUsers.pending]: (state) => {
+      state.loading = true;
+    },
+    [getAllUsers.fulfilled]: (state, { payload }) => {
+      return {
+        loading: false,
+        users: payload,
+        success: true,
+      };
+    },
+    [getAllUsers.rejected]: (state, { payload }) => {
+      return { loading: false, error: payload };
     },
   },
 });

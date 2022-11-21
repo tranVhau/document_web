@@ -59,14 +59,9 @@ function Navigator(props) {
             </li>
 
             <li>
-              <NavLink
-                className={(navLink) =>
-                  navLink.isActive ? classes.active : ""
-                }
-                to={"/share"}
-              >
+              <div className={classes.contact} onClick={props.toggleModal}>
                 Share
-              </NavLink>
+              </div>
             </li>
 
             <li>

@@ -1,127 +1,44 @@
 import React, { useEffect } from "react";
 
 import Button from "../components/UI/Button";
-import Table from "../components/tables/Table";
+import Usertable from "../components/tables/UserTabe";
 import EditUser from "../components/Modal/EditUser";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "../store/actions/userAction";
 
 import classes from "./asset/css/StandardMain.module.css";
 
 function UserManagementPage() {
+  const dispatch = useDispatch();
+  const { users } = useSelector((state) => state.user);
   const columns = React.useMemo(
     () => [
       {
-        Header: "First Name",
-        accessor: "firstname",
+        Header: "ID",
+        accessor: "id",
       },
       {
-        Header: "Last Name",
-        accessor: "lastName",
+        Header: "Name",
+        accessor: "name",
       },
       {
-        Header: "Age",
-        accessor: "age",
-      },
-      {
-        Header: "City",
-        accessor: "city",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
+        Header: "email",
+        accessor: "email",
       },
     ],
     []
   );
 
-  const data = React.useMemo(
-    () => [
-      {
-        firstname: "firstname1",
-        lastName: "hau1",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname10",
-        lastName: "hau2",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname9",
-        lastName: "hau3",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname8",
-        lastName: "hau4",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname7",
-        lastName: "hau5",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname6",
-        lastName: "hau6",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname5",
-        lastName: "hau7",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname4",
-        lastName: "hau8",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname3",
-        lastName: "hau9",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname2",
-        lastName: "hau10",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname3",
-        lastName: "hau9",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname2",
-        lastName: "hau10",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-    ],
-    []
-  );
+  const fetchAllUsers = () => {
+    dispatch(getAllUsers());
+  };
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
+
+  console.log(users);
 
   const [state, setState] = React.useState(true);
   const [rowSelected, setRowSelected] = React.useState("");
@@ -154,12 +71,12 @@ function UserManagementPage() {
                 </Button>
               </div>
             </div>
-            <Table
+            <Usertable
               columns={columns}
-              data={data}
-              navi={null}
+              data={users}
               setRowSelected={setRowSelected}
-            ></Table>
+              navi={"/user"}
+            ></Usertable>
           </div>
         </div>
       </div>

@@ -8,11 +8,7 @@ function Charts() {
         <p class="font-weight-bold">DASHBOARD</p>
       </div>
 
-      <div class="main_cards">
-        <StatisticCard />
-        <StatisticCard />
-        <StatisticCard />
-      </div>
+      <div class="main_cards"></div>
 
       <div class="charts">
         <div class="charts-card">
@@ -21,7 +17,7 @@ function Charts() {
         </div>
 
         <div class="charts_card">
-          <p class="chart_title">Evaluate</p>
+          <p class="chart_title">Pending Document</p>
           <div id="area_chart"></div>
         </div>
       </div>

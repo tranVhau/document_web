@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./asset/css/StandardMain.module.css";
 
 import HistoryTable from "../components/tables/HistoryTable";
-import Button from "../components/UI/Button";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getAllHistory } from "../store/actions/historyAction";
 
 function ApprovedLogPage() {
+  const dispatch = useDispatch();
+  const { history } = useSelector((state) => state.history);
   const columns = React.useMemo(
     () => [
       {
@@ -17,92 +21,25 @@ function ApprovedLogPage() {
       },
       {
         Header: "Contributor",
-        accessor: "Contributor",
+        accessor: "user",
       },
 
       {
         Header: "Approved by",
-        accessor: "approved",
+        accessor: "admin_name",
       },
     ],
     []
   );
+  const fetchAllHistory = () => {
+    dispatch(getAllHistory());
+  };
 
-  const data = React.useMemo(
-    () => [
-      {
-        firstname: "firstname1",
-        lastName: "hau1",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname10",
-        lastName: "hau2",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname9",
-        lastName: "hau3",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname8",
-        lastName: "hau4",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname7",
-        lastName: "hau5",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname6",
-        lastName: "hau6",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname5",
-        lastName: "hau7",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname4",
-        lastName: "hau8",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname3",
-        lastName: "hau9",
-        age: 10,
-        city: "...",
-        status: "...",
-      },
-      {
-        firstname: "firstname2",
-        lastName: "hau10",
-        age: 11,
-        city: "...",
-        status: "...",
-      },
-    ],
-    []
-  );
+  useEffect(() => {
+    fetchAllHistory();
+  }, []);
+
+  console.log(history);
 
   return (
     <>
@@ -116,7 +53,7 @@ function ApprovedLogPage() {
             <div className={`${classes.row} ${classes.element_button}`}>
               <div className={classes.col_sm_2}></div>
             </div>
-            <HistoryTable columns={columns} data={data}></HistoryTable>
+            <HistoryTable columns={columns} data={history}></HistoryTable>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import PrevArrow from "../Carousel/PrevArrow";
 import SlideBar from "../Carousel/SlideBar";
 import classes from "./CategoryList.module.css";
 
-function CategoryList() {
+function CategoryList(props) {
   const setting = {
     infinite: false,
     speed: 500,
@@ -45,18 +45,15 @@ function CategoryList() {
     <div className={classes.container}>
       <div className={classes.homepage_tags}>
         <h1>
-          <i>Computer Science</i>
+          <i className={classes.category_tag}>{props.category}</i>
         </h1>
         <div className={classes.clear}></div>
       </div>
       <div className={classes.slider}>
         <Slider {...setting}>
-          <DocumentItem />
-          <DocumentItem />
-          <DocumentItem />
-          <DocumentItem />
-          <DocumentItem />
-          <DocumentItem />
+          {props.docs.map((comic) => {
+            return <DocumentItem comic={comic} key={comic.id} />;
+          })}
         </Slider>
       </div>
     </div>
