@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { newHistory, getAllHistory } from "../actions/historyAction";
+import {
+  newHistory,
+  getAllHistory,
+  getHistory,
+} from "../actions/historyAction";
 const initialState = {
   loading: false,
   history: [],
@@ -39,6 +43,21 @@ const historySlice = createSlice({
       };
     },
     [getAllHistory.rejected]: (state, { payload }) => {
+      return { loading: false, error: payload };
+    },
+
+    // get history
+    [getHistory.pending]: (state) => {
+      state.loading = true;
+    },
+    [getHistory.fulfilled]: (state, { payload }) => {
+      return {
+        loading: false,
+        history: payload,
+        success: true,
+      };
+    },
+    [getHistory.rejected]: (state, { payload }) => {
       return { loading: false, error: payload };
     },
   },

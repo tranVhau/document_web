@@ -41,14 +41,17 @@ function DocEditForm(props) {
   const cateInputHandler = (arr) => {
     // const cateArr = inputData.categories;
     const cateArr = [];
+    const cateArrID = [];
     arr.forEach((cate) => {
       cateArr.push(cate.value);
+      cateArrID.push(cate.id);
     });
 
     setInputData((prev) => {
       return {
         ...prev,
         categories: cateArr,
+        categoriesID: cateArrID,
       };
     });
   };

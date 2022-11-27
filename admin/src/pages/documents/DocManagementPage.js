@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import DocumentTable from "../components/tables/DocumentTable";
+import DocumentTable from "../../components/tables/DocumentTable";
 
-import classes from "./asset/css/StandardMain.module.css";
+import classes from "../asset/css/StandardMain.module.css";
 import { NavLink } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAllDocument, delDocument } from "../store/actions/documentAction";
+import {
+  getAllDocument,
+  delDocument,
+} from "../../store/actions/documentAction";
 import "react-alert-confirm/dist/index.css";
 import confirm from "react-alert-confirm";
 

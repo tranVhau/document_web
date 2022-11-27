@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import classes from "./asset/css/StandardMain.module.css";
+import classes from "../asset/css/StandardMain.module.css";
 
-import HistoryTable from "../components/tables/HistoryTable";
+import HistoryTable from "../../components/tables/HistoryTable";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getAllHistory } from "../store/actions/historyAction";
+import { getAllHistory } from "../../store/actions/historyAction";
 
 function ApprovedLogPage() {
   const dispatch = useDispatch();
@@ -53,7 +53,11 @@ function ApprovedLogPage() {
             <div className={`${classes.row} ${classes.element_button}`}>
               <div className={classes.col_sm_2}></div>
             </div>
-            <HistoryTable columns={columns} data={history}></HistoryTable>
+            <HistoryTable
+              columns={columns}
+              navi={"/history-view"}
+              data={history}
+            ></HistoryTable>
           </div>
         </div>
       </div>

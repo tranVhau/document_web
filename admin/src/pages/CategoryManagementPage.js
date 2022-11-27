@@ -15,6 +15,7 @@ import Button from "../components/UI/Button";
 import CategoryModal from "../components/Modal/CategoryModal";
 
 import classes from "./asset/css/StandardMain.module.css";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 function CategoryManagementPage() {
   const [isNew, setNew] = React.useState(false);
@@ -45,51 +46,60 @@ function CategoryManagementPage() {
     fetchCategoryList();
   }, []);
 
-  useEffect(() => {
-    toast(error, {
-      type: "error",
-    });
-  }, [error]);
-
-  // useEffect(() => {
-  //   toast("successfully", {
-  //     type: "success",
-  //   });
-  // }, [success]);
-
   //close modal
   const closeHandler = () => {
     setRowSelected(false);
     setNew(false);
   };
 
-  const newCateHandler = (e) => {
-    e.preventDefault();
-    dispatch(newCate({ name: cateData.name }));
-    if (success && error === null) {
-      toast("Category Added", {
+  const newCateHandler = async (e) => {
+    try {
+      e.preventDefault();
+      const action = await dispatch(newCate({ name: cateData.name }));
+      unwrapResult(action);
+      toast("Category Added Successfully", {
         type: "success",
+      });
+    } catch (error) {
+      toast(error, {
+        type: "error",
+      });
+    }
+    fetchCategoryList();
+    closeHandler();
+  };
+
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const action = await dispatch(delCate(rowSelected.id));
+      unwrapResult(action);
+      toast("Category Deleted Successfully", {
+        type: "success",
+      });
+    } catch (error) {
+      toast(error, {
+        type: "error",
       });
     }
 
     fetchCategoryList();
     closeHandler();
   };
-
-  const deleteHandler = (e) => {
-    e.preventDefault();
-    dispatch(delCate(rowSelected.id));
-
-    fetchCategoryList();
-    closeHandler();
-  };
-  const updateHandler = (e) => {
+  const updateHandler = async (e) => {
     e.preventDefault();
 
-    dispatch(update({ category: { name: cateData.name }, id: rowSelected.id }));
-    if (success) {
-      toast("Category Updated", {
+    try {
+      const action = await dispatch(
+        update({ category: { name: cateData.name }, id: rowSelected.id })
+      );
+      unwrapResult(action);
+      toast("Category Updated Successfully", {
         type: "success",
+      });
+    } catch (error) {
+      toast(error, {
+        type: "error",
       });
     }
 

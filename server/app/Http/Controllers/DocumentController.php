@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Cloudinary\Cloudinary;
 use Cloudinary\Transformation\Resize;
+use Cloudinary\Transformation\Background;
 use App\Models\document_category;
 
 class DocumentController extends Controller
@@ -68,7 +69,9 @@ class DocumentController extends Controller
         $thumbCloundDir = $documentClound->getFileName();
         $cld = new Cloudinary();
         
-        $thumbConvert = $cld->image($thumbCloundDir.'.jpg')->resize(Resize::fill()->width(400)->height(600))->toUrl();
+        $thumbConvert = $cld->image($thumbCloundDir.'.jpg')->resize(Resize::pad()->width(600)->height(400)->background(
+            Background::auto())
+            )->toUrl();
 
         $thumbnailClound = $thumbConvert->getScheme().'://'.$thumbConvert->getHost().'/'.$thumbConvert->getPath();
 
@@ -94,7 +97,6 @@ class DocumentController extends Controller
             ])->first();
 
             if($isExist == null){
-
                     document_category::create([
                     'category_id' => $cate,
                     'document_id' => $currDocID,
@@ -181,17 +183,15 @@ class DocumentController extends Controller
                 $thumbCloundDir = $documentClound->getFileName();
                 $cld = new Cloudinary();
                 
-                $thumbConvert = $cld->image($thumbCloundDir.'.jpg')->resize(Resize::fill()->width(400)->height(600))->toUrl();
+                $thumbConvert = $cld->image($thumbCloundDir.'.jpg')->resize(Resize::pad()->width(600)->height(400)->background(
+                    Background::auto())
+                    )->toUrl();
                 $thumbnailClound = $thumbConvert->getScheme().'://'.$thumbConvert->getHost().'/'.$thumbConvert->getPath();
                 
                 
                 $document->src = $documentClound->getPath();
                 $document->thumbnail = $thumbnailClound;
             }
-            // document_category::create([
-            //     'category_id' => $request->category_id,
-            //     'document_id' => $request->document_id,
-            // ]);
 
             if($request->categories!=null ){
                 DB::table('document_categories')

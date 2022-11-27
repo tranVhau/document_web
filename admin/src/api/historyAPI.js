@@ -7,7 +7,7 @@ const historyAPI = {
   },
 
   get: (id) => {
-    const url = `localhost:8000/api/approved_log/${id}`;
+    const url = `http://localhost:8000/api/approved_log/${id}`;
     return axiosClient.get(url);
   },
 

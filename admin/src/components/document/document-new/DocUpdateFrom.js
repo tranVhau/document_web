@@ -95,7 +95,7 @@ function DocUpdateForm(props) {
         <div className={classes.input_section}>
           <form className={classes.doc_form_info}>
             <div className={classes.doc_section}>
-              <h2>Document</h2>
+              {props.pending ? <h2>Preliminary Edit </h2> : <h2>Document</h2>}
               <div>
                 <label>Name</label>
                 <input
@@ -137,14 +137,16 @@ function DocUpdateForm(props) {
                   onChange={formInputHandler}
                 ></textarea>
               </div>
-              <div>
-                <label>File</label>
-                <input
-                  name="src"
-                  type={"file"}
-                  onChange={inputPDFHandler}
-                ></input>
-              </div>
+              {!props.pending && (
+                <div>
+                  <label>File</label>
+                  <input
+                    name="src"
+                    type={"file"}
+                    onChange={inputPDFHandler}
+                  ></input>
+                </div>
+              )}
             </div>
           </form>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "../components/UI/Button";
 import Usertable from "../components/tables/UserTabe";
@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../store/actions/userAction";
 
 import classes from "./asset/css/StandardMain.module.css";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 function UserManagementPage() {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.user);
+  //const { users } = useSelector((state) => state.user);
+  const [users, setUsers] = useState([]);
   const columns = React.useMemo(
     () => [
       {
@@ -30,15 +32,13 @@ function UserManagementPage() {
     []
   );
 
-  const fetchAllUsers = () => {
-    dispatch(getAllUsers());
+  const fetchAllUsers = async () => {
+    setUsers(unwrapResult(await dispatch(getAllUsers())));
   };
 
   useEffect(() => {
     fetchAllUsers();
   }, []);
-
-  console.log(users);
 
   const [state, setState] = React.useState(true);
   const [rowSelected, setRowSelected] = React.useState("");

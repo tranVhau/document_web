@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import classes from "./asset/css/StandardMain.module.css";
+import React, { useEffect } from "react";
+import classes from "../asset/css/StandardMain.module.css";
 
-import Button from "../components/UI/Button";
-import DocumentTable from "../components/tables/DocumentTable";
+import Button from "../../components/UI/Button";
+import DocumentTable from "../../components/tables/DocumentTable";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAllPendingDocument } from "../store/actions/documentAction";
+import { getAllPendingDocument } from "../../store/actions/documentAction";
 
 function PendingPostPage() {
-  const [rowSelected, setRowSelected] = useState({});
+  // const [rowSelected, setRowSelected] = useState({});
   const columns = React.useMemo(
     () => [
       {
