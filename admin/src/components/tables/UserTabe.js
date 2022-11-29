@@ -31,12 +31,13 @@ function Usertable({ columns, data, setRowSelected, navi }) {
         Cell: (row) => {
           return (
             <NavLink
-              to={navi + "/" + row.row.original.id}
               className={classes.view_btn}
               onClick={() =>
                 setRowSelected({
                   id: row.row.original.id,
-                  // name: row.row.original.name,
+                  name: row.row.original.name,
+                  avt: row.row.original.avt,
+                  email: row.row.original.email,
                 })
               }
             >

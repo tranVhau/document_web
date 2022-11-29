@@ -76,26 +76,29 @@ function NewDocPage() {
 
   const [data, setData] = useState(initVal);
 
-  const newDocumentHandler = () => {
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("desc", data.desc);
-    formData.append("src", data.src);
-    formData.append("user_id", userData.id);
-    formData.append("isPublic", 1);
-    data.categoriesID.forEach((cateID) => {
-      formData.append("categories[]", cateID);
-    });
-    dispatch(newDocument({ document: formData }));
-    if (success) {
+  const newDocumentHandler = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("desc", data.desc);
+      formData.append("src", data.src);
+      formData.append("user_id", userData.id);
+      formData.append("isPublic", 1);
+      data.categoriesID.forEach((cateID) => {
+        formData.append("categories[]", cateID);
+      });
+      unwrapResult(await dispatch(newDocument({ document: formData })));
       toast("New Document Added", {
         type: "success",
       });
       setTimeout(() => {
         navigate("/doc-manage");
       }, 1500);
+    } catch (error) {
+      toast(error, {
+        type: "error",
+      });
     }
-    console.log(data);
   };
 
   return (

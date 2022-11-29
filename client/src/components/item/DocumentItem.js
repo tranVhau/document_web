@@ -7,33 +7,33 @@ function DocumentItem(props) {
     <div className={classes.post_item}>
       <div className={classes.post_media}>
         <img
-          src={props.comic.thumbnail}
+          src={props.doc.thumbnail}
           alt="something went wrong"
           className={classes.post_image}
         />
       </div>
       <div className={classes.post_info}>
-        {props.comic.categories.map((cate, index) => {
+        {props.doc.categories.map((cate, index) => {
           return (
             <div className={classes.post_category} key={index}>
               {cate}
             </div>
           );
         })}
-        <NavLink to={"/document"}>
-          <div className={classes.post_title}>{props.comic.name}</div>
+        <NavLink to={`/document/${props.doc.id}`}>
+          <div className={classes.post_title}>{props.doc.name}</div>
         </NavLink>
-        <p className={classes.post_desc}>{props.comic.desc}</p>
+        <p className={classes.post_desc}>{props.doc.desc}</p>
         <div className={classes.post_author}>
           <img
-            src={props.comic.avt}
+            src={props.doc.avt}
             alt="something went wrong"
             className={classes.post_author_image}
           />
           <div className={classes.post_author_info}>
-            <h4 className={classes.post_author_name}>{props.comic.author}</h4>
+            <h4 className={classes.post_author_name}>{props.doc.author}</h4>
             <time className={classes.post_author_time}>
-              {props.comic.created_at}
+              {props.doc.created_at}
             </time>
           </div>
         </div>

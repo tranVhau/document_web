@@ -1,97 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import authAPI from "../../api/authAPI";
+import documentAPI from "../../api/documentAPI";
 
 //THUNK
-//register
-export const registerUser = createAsyncThunk(
-  // action type string
-  "user/register",
-  // callback function
-  async ({ firstName, email, password }, { rejectWithValue }) => {
-    try {
-      // configure header's Content-Type as JSON
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      // make request to backend
-      await axios.post(
-        "http://localhost:8000/api/auth/register",
-        { firstName, email, password },
-        config
-      );
-    } catch (error) {
-      // return custom error message from API if any
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
 
-export const userLogin = createAsyncThunk(
-  "user/login",
-  async (userLoginData, { rejectWithValue }) => {
-    try {
-      const data = await authAPI.login(userLoginData);
-      localStorage.setItem("userToken", data.access_token);
-      return data;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
-
-// get userInfo
-
-export const getUserInfo = createAsyncThunk(
-  "user/me",
+export const getAllDocument = createAsyncThunk(
+  "document/getAllDocument",
   async (arg, { rejectWithValue }) => {
     try {
-      const data = await authAPI.me();
-      return data;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
-
-export const getAllUsers = createAsyncThunk(
-  "user/getAllUser",
-  async (arg, { rejectWithValue }) => {
-    try {
-      const data = await authAPI.getAll();
-      return data.data;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
-
-//new user form admin page action
-
-export const newUser = createAsyncThunk(
-  "user/newUser",
-  async (payload, { rejectWithValue }) => {
-    try {
-      const { user } = payload;
-      const res = await authAPI.store(user);
+      const res = await documentAPI.getAll();
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -103,14 +19,27 @@ export const newUser = createAsyncThunk(
   }
 );
 
-// update user
-export const updateUser = createAsyncThunk(
-  "user/updateUser",
-  async (payload, { rejectWithValue }) => {
-    const { id, user } = payload;
+export const getLimitDocument = createAsyncThunk(
+  "document/getLimitDocument",
+  async (limit, { rejectWithValue }) => {
     try {
-      console.log(payload);
-      const res = await authAPI.update(id, user);
+      const res = await documentAPI.getLimit(limit);
+      return res.data.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const getAllPendingDocument = createAsyncThunk(
+  "document/getAllDocument",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const res = await documentAPI.getAllPending();
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -122,12 +51,71 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-// delete user
-export const deleteUser = createAsyncThunk(
-  "user/deleteUser",
+// get specify document
+
+export const getDocument = createAsyncThunk(
+  "document/getDocument",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await authAPI.delete(id);
+      const res = await documentAPI.get(id);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+// delete document
+
+export const delDocument = createAsyncThunk(
+  "document/deleteDocument",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await documentAPI.delete(id);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+//
+
+// update document
+
+export const update = createAsyncThunk(
+  "document/updateDocument",
+  async (payload, { rejectWithValue }) => {
+    const { id, document } = payload;
+    try {
+      const res = await documentAPI.update(id, document);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+// new document
+
+export const newDocument = createAsyncThunk(
+  "document/newDocument",
+  async (payload, { rejectWithValue }) => {
+    const { document } = payload;
+    try {
+      const res = await documentAPI.store(document);
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

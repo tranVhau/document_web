@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import authAPI from "../../api/authAPI";
+import userAPI from "../../api/userAPI";
 
 //THUNK
 //register
@@ -37,7 +37,7 @@ export const userLogin = createAsyncThunk(
   "user/login",
   async (userLoginData, { rejectWithValue }) => {
     try {
-      const data = await authAPI.login(userLoginData);
+      const data = await userAPI.login(userLoginData);
       localStorage.setItem("userToken", data.access_token);
       return data;
     } catch (error) {
@@ -56,7 +56,7 @@ export const getUserInfo = createAsyncThunk(
   "user/me",
   async (arg, { rejectWithValue }) => {
     try {
-      const data = await authAPI.me();
+      const data = await userAPI.me();
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -72,7 +72,7 @@ export const getAllUsers = createAsyncThunk(
   "user/getAllUser",
   async (arg, { rejectWithValue }) => {
     try {
-      const data = await authAPI.getAll();
+      const data = await userAPI.getAll();
       return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -91,7 +91,7 @@ export const newUser = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const { user } = payload;
-      const res = await authAPI.store(user);
+      const res = await userAPI.store(user);
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -110,7 +110,7 @@ export const updateUser = createAsyncThunk(
     const { id, user } = payload;
     try {
       console.log(payload);
-      const res = await authAPI.update(id, user);
+      const res = await userAPI.update(id, user);
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -127,7 +127,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await authAPI.delete(id);
+      const res = await userAPI.delete(id);
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

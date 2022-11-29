@@ -80,7 +80,7 @@ textarea {
   padding: 0 2rem;
 }
 
-::-webkit-file-upload-button {
+.uploadbtn::-webkit-file-upload-button {
   background: rgb(32, 119, 249);
   color: rgb(255, 255, 255);
   font-weight: bold;

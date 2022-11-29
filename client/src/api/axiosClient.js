@@ -1,25 +1,21 @@
 // api/axiosClient.js
 import axios from "axios";
-import queryString from "query-string";
-import { parse, stringify } from "qs";
+// import queryString from "query-string";
 // Set up default config for http requests here
 
 const axiosClient = axios.create({
-  baseURL: "https://js-post-api.herokuapp.com/api",
   headers: {
-    "content-type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("userToken")}`,
   },
+
   // paramsSerializer: (params) => queryString.stringify(params),
-  paramsSerializer: {
-    encode: parse,
-    serialize: (params) => queryString.stringify(params),
-  },
 });
 
 // Add a request interceptor
-axios.interceptors.request.use(
+axiosClient.interceptors.request.use(
   function (config) {
     //handle token...
+    // config.headers.authorization = localStorage.getItem("userToken");
     // Do something before request is sent
     return config;
   },

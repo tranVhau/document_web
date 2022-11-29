@@ -15,11 +15,12 @@ class DocumentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index','show']]);
+        $this->middleware('auth:api', ['except' => ['index','show', 'getLimit']]);
     }
 
     public function index()
     {
+        
         $category = DB::table('document_categories')
                     ->join('categories', 'categories.id','=','document_categories.category_id')
                     ->select('document_categories.document_id', 'categories.name as category_name')
@@ -54,13 +55,53 @@ class DocumentController extends Controller
         ], 200 );
     }
 
+    public function getLimit($limit)
+    {
+        
+        $category = DB::table('document_categories')
+                    ->join('categories', 'categories.id','=','document_categories.category_id')
+                    ->select('document_categories.document_id', 'categories.name as category_name')
+                    ->get();
+        
+
+        $documents = DB::table('documents')
+                    ->join('users', 'users.id','=','documents.user_id')
+                    ->select('documents.*'  ,'users.name as username', 'users.avt')
+                    ->where('documents.isPublic','=',1)
+                    ->paginate($limit?$limit:0);
+                    // ->get();
+
+        // add the array space to store all document category
+
+        forEach($documents as $element){
+            $element->categories = array();
+        }
+
+        
+        forEach( $documents as $doc){
+           forEach($category as $cate){
+            if($cate->document_id == $doc->id){
+                array_push($doc->categories,$cate->category_name);
+            }
+           }
+        }
+
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $documents,
+        ], 200 );
+    }
+
+
     public function store(Request $request)
     {
 
         $request->validate([
             'name' => 'required|string|max:255',
             'desc' => 'string',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'categories'=>'required',
+            // 'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'src'=> "required|mimetypes:application/pdf|max:10000",
         ]);
 

@@ -30,7 +30,8 @@ Route::controller(CategoryController::class)->group(function () {
 }); 
 
 Route::controller(DocumentController::class)->group(function () {
-    Route::get('documents', 'index');
+    Route::get('documents/', 'index');
+    Route::get('documents/{limit}', 'getLimit');
     Route::post('document', 'store');
     Route::get('document/{id}', 'show');
     Route::put('document/{id}', 'update');

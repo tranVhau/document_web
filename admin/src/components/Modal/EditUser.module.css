@@ -20,7 +20,7 @@
 
 .header {
   background: #535f72;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 .header h2 {
@@ -35,6 +35,30 @@
 
 .content label {
   display: block;
+  font-weight: bold;
+  color: #3b3b3bc3;
+}
+
+.preview__image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.preview__image img {
+  width: 6rem;
+  border-radius: 8px;
+}
+
+.input__avt {
+  padding: 1.5rem 0 0 1.5rem;
+  width: 100%;
+}
+
+.input__avt label {
+  display: block;
+  padding-bottom: 0.5rem;
 }
 
 .content input {
@@ -81,6 +105,15 @@
   border-radius: 4px;
   margin: 5px;
   transition: 0.3s;
+}
+
+.avt__upload::-webkit-file-upload-button {
+  background: rgb(32, 119, 249);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  padding: 0.4em;
+  border-radius: 10px;
+  border: none;
 }
 
 @media (min-width: 768px) {

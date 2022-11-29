@@ -47,7 +47,9 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'avt'=>'mimes:jpeg,jpg,png,gif|required|max:10000|nullable'
+            'avt'=>'mimes:jpeg,jpg,png,gif|required|max:10000|nullable',
+            'password' => 'required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            
         ]); 
 
         $avatarClound = $request->file('avt')->storeOnCloudinary('document_web/img/avatar');
@@ -64,8 +66,8 @@ class UserController extends Controller
         if($user){
             return response()->json([
                 'status' => 'success',
-                'message' => 'Document created successfully',
-                'user' => $user,
+                'message' => 'User Account created successfully',
+                'data' => $user,
             ]);
         }else{
             return response()->json([
@@ -79,7 +81,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'string|max:255|nullable',
             'email' => 'string|email|max:255|unique:users|nullable',
-            'password' => 'string|nullable',
+            'password' => 'string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/|nullable',
             'avt'=>'mimes:jpeg,jpg,png,gif|max:10000|nullable'
         ]); 
 
@@ -88,14 +90,14 @@ class UserController extends Controller
             if($request->name !=null){
                 $user->name = $request->name;
             }
-            if($request->avt !=null){
+            if($request->avt !=null || $request->avt !=''){
                 $avatarClound = $request->file('avt')->storeOnCloudinary('document_web/img/avatar');
                 $user->avt = $avatarClound->getPath();
             }
-            if($request->email !=null){
+            if($request->email !=null || $request->email!=''){
                 $user->email = $request->email;
             }
-            if($request->password !=null){
+            if($request->password !=null || $request->password !=''){
                  $user->password = Hash::make($request->password);
             }
 
@@ -103,8 +105,8 @@ class UserController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'user updated successfully',
-                'user' => $user,
+                'message' => 'User updated successfully',
+                'data' => $user,
             ], 200 );
        }else{
         return response()->json([
