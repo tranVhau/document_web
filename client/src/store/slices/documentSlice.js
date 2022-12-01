@@ -4,6 +4,8 @@ import {
   getDocument,
   newDocument,
   getLimitDocument,
+  search,
+  getByCategory,
 } from "../actions/documentAction";
 
 const initialState = {
@@ -16,7 +18,17 @@ const initialState = {
 const documentSlice = createSlice({
   name: "document",
   initialState,
-  reducers: {},
+  reducers: {
+    sortDocument(state, action) {
+      state.document.sort((docA, docB) => {
+        if (action.payload === "?sort=asc") {
+          return docA.created_at > docB.created_at ? 1 : -1;
+        } else if (action.payload === "?sort=desc") {
+          return docA.created_at < docB.created_at ? 1 : -1;
+        }
+      });
+    },
+  },
   extraReducers: {
     //get document
 
@@ -69,16 +81,44 @@ const documentSlice = createSlice({
       state.loading = true;
     },
     [getLimitDocument.fulfilled]: (state, { payload }) => {
-      return {
-        loading: false,
-        document: payload,
-        success: true,
-      };
+      state.loading = false;
+      state.document = payload;
+      state.success = true;
     },
     [getLimitDocument.rejected]: (state, { payload }) => {
-      return { loading: false, error: payload };
+      state.loading = false;
+      state.error = payload;
+    },
+
+    // search
+    [search.pending]: (state) => {
+      state.loading = true;
+    },
+    [search.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.document = payload;
+      state.success = true;
+    },
+    [search.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+
+    // get by category id
+    [getByCategory.pending]: (state) => {
+      state.loading = true;
+    },
+    [getByCategory.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.document = payload;
+      state.success = true;
+    },
+    [getByCategory.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
     },
   },
 });
 
+export const documentReducerActions = documentSlice.actions;
 export default documentSlice.reducer;

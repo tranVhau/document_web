@@ -31,13 +31,15 @@ Route::controller(CategoryController::class)->group(function () {
 
 Route::controller(DocumentController::class)->group(function () {
     Route::get('documents/', 'index');
-    Route::get('documents/{limit}', 'getLimit');
     Route::post('document', 'store');
     Route::get('document/{id}', 'show');
     Route::put('document/{id}', 'update');
     Route::delete('document/{id}', 'destroy');
     Route::get('documents/pending', 'pending');
     Route::get('document/pending/{id}', 'showpending');
+    Route::get('documents/search/{keyword}', 'search');
+    Route::get('documents/{limit}', 'getLimit');
+    Route::get('doc-cate/{id}', 'getByCate');
 }); 
 
 

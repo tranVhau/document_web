@@ -65,12 +65,17 @@ body {
   border-radius: 7px;
 }
 
+.info__Wrapper {
+  padding: 6px;
+}
+
 .post_category {
   display: inline-block;
   padding: 5px 10px;
   background: rgba(255, 240, 246, 1);
   color: #e64980;
   font-weight: bold;
+  font-size: 14px;
   margin-bottom: 10px;
   position: relative;
   border-radius: 10px;

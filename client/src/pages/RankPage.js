@@ -41,6 +41,8 @@ const COMIC_ITEM_DATA = [
 ];
 
 function RankPage() {
+  let url =
+    "https://res.cloudinary.com//dy9g317c9/image/upload/b_auto,c_pad,h_400,w_600/v1/document_web/document/a27by8lilnrrqzmi64kq.jpg";
   return (
     <div className={classes.container}>
       <div className={classes.tag_name}>

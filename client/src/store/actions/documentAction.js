@@ -126,3 +126,39 @@ export const newDocument = createAsyncThunk(
     }
   }
 );
+
+//search
+
+export const search = createAsyncThunk(
+  "document/search",
+  async (keyword, { rejectWithValue }) => {
+    try {
+      const res = await documentAPI.search(keyword);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+//e=
+
+export const getByCategory = createAsyncThunk(
+  "document/getByCategory",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await documentAPI.getByCategory(id);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);

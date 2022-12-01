@@ -1,8 +1,19 @@
 import React from "react";
 
 import classes from "../DocumentItem.module.css";
+import moment from "moment";
 
 function SlideBar(props) {
+  const calBetweenTimes = (past) => {
+    const time = moment(moment()).diff(past, "day");
+    if (time > 0) {
+      return `${time} days ago`;
+    } else if (time === 0) {
+      return `${time} hours ago`;
+    } else {
+      return moment(past).format("DD/MMM/YYYY");
+    }
+  };
   return (
     <div className={classes.post_feature}>
       <div className={`${classes.post_feature_media} ${classes.post_media}`}>
@@ -16,7 +27,7 @@ function SlideBar(props) {
         {props.item.categories.map((cate, index) => {
           return (
             <div className={classes.post_category} key={index}>
-              {cate}
+              {cate.category_name}
             </div>
           );
         })}
@@ -37,7 +48,7 @@ function SlideBar(props) {
           <div className={classes.post_author_info}>
             <h4 className={classes.post_author_name}>{props.item.author}</h4>
             <time className={classes.post_author_time}>
-              {props.item.created_at}
+              {calBetweenTimes(props.item.created_at)}
             </time>
           </div>
         </div>

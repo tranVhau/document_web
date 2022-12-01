@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 
-function PdfSection() {
+const PdfSection = React.memo(({ url }) => {
   const [numPages, setNumPages] = useState(null);
 
   function onDocumentLoadSuccess({ numPages }) {
@@ -11,7 +11,7 @@ function PdfSection() {
   return (
     <Document
       file={{
-        url: "http://res.cloudinary.com/dy9g317c9/image/upload/v1669030135/document_web/document/e1ljhjf2vlpcslfjztls.pdf",
+        url: url,
       }}
       onLoadSuccess={onDocumentLoadSuccess}
     >
@@ -20,6 +20,6 @@ function PdfSection() {
       ))}
     </Document>
   );
-}
+});
 
 export default PdfSection;

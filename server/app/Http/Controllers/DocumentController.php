@@ -15,7 +15,7 @@ class DocumentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index','show', 'getLimit']]);
+        $this->middleware('auth:api', ['except' => ['index','show', 'getLimit', 'search','getByCate']]);
     }
 
     public function index()
@@ -60,7 +60,7 @@ class DocumentController extends Controller
         
         $category = DB::table('document_categories')
                     ->join('categories', 'categories.id','=','document_categories.category_id')
-                    ->select('document_categories.document_id', 'categories.name as category_name')
+                    ->select('document_categories.category_id','document_categories.document_id', 'categories.name as category_name')
                     ->get();
         
 
@@ -81,7 +81,7 @@ class DocumentController extends Controller
         forEach( $documents as $doc){
            forEach($category as $cate){
             if($cate->document_id == $doc->id){
-                array_push($doc->categories,$cate->category_name);
+                array_push($doc->categories,$cate);
             }
            }
         }
@@ -360,5 +360,84 @@ class DocumentController extends Controller
                 'message' => 'document not found',
             ], 404);
         }
+    }
+
+    public function search($keyword){
+        $newKeyWord = str_replace('%20', ' ', $keyword);
+        $category = DB::table('document_categories')
+        ->join('categories', 'categories.id','=','document_categories.category_id')
+        ->select('document_categories.category_id','document_categories.document_id', 'categories.name as category_name')
+        ->get();
+        $result = DB::table('documents')
+        ->join('users', 'users.id','=','documents.user_id')
+        ->where([['documents.name', 'LIKE','%'.$newKeyWord.'%'],['documents.isPublic','=',1]])
+        ->select('documents.*','users.name as username', 'users.avt')
+        ->get();
+
+        
+        forEach($result as $element){
+            $element->categories = array();
+        }
+
+        
+        forEach( $result as $doc){
+           forEach($category as $cate){
+            if($cate->document_id == $doc->id){
+                array_push($doc->categories,$cate);
+            }
+           }
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => $result,
+        ], 200 );
+    }
+
+    public function getByCate($id){
+        $category = DB::table('document_categories')
+                ->join('categories', 'categories.id','=','document_categories.category_id')
+                ->select('document_categories.category_id','document_categories.document_id', 'categories.name as category_name')
+                ->get();
+
+
+        $documents = DB::table('documents')
+                ->join('users', 'users.id','=','documents.user_id')
+                ->select('documents.*'  ,'users.name as username', 'users.avt')
+                ->where('documents.isPublic','=',1)
+                ->get();
+
+        // add the array space to store all document category
+
+        forEach($documents as $element){
+            $element->categories = array();
+        }
+
+
+        forEach( $documents as $key=>$doc){
+            forEach($category as $cate){
+                if($cate->document_id == $doc->id){
+                    array_push($doc->categories,$cate);
+                }
+            }
+           
+        }
+
+
+        // dd($documents);
+        $resDocument = [];
+        foreach($documents as $doc){
+            $needleField = 'category_id';
+            if(in_array($id, array_column($doc->categories, $needleField))){
+                // unset($documents[$key]);
+                array_push($resDocument,$doc);
+            }
+        }
+        
+
+        // var_dump($documents);
+        return response()->json([
+        'status' => 'success',
+        'data' => $resDocument 
+        ], 200 );
     }
 }

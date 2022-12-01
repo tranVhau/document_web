@@ -25,6 +25,13 @@ body {
   row-gap: 3rem;
 }
 
+.not__found {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.54);
+}
+
 @media screen and (max-width: 1023px) {
   .container {
     padding: 0 16rem;

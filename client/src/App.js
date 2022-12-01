@@ -19,8 +19,10 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="*" element={<HomePage />} />
-        <Route path="/cate/*" element={<SearchPage />} />
+        {/* <Route path="*" element={<HomePage />} /> */}
+        <Route path="/documents" element={<SearchPage />} />
+        <Route path="/documents/:keyword" element={<SearchPage />} />
+        <Route path="/documents/:keyword/:category" element={<SearchPage />} />
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/popular" element={<RankPage />} />
         <Route path="/document/:id" element={<DisplayDoc />} />

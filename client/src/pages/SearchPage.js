@@ -1,54 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import DocumentItem from "../components/item/DocumentItem";
+
+import { search, getByCategory } from "../store/actions/documentAction";
+import { useDispatch, useSelector } from "react-redux";
 
 import FilterSearch from "../components/item/Filter/FilterSearch";
 import PaginatedItems from "../components/item/pagination/PaginatedItem";
+import classes from "./asset/css/SearchPage.module.css";
 
-const COMIC_ITEM_DATA = [
-  {
-    id: 1,
-    name: "Comic Name",
-    thumbnail:
-      "https://res.cloudinary.com//dy9g317c9/image/upload/c_fill,h_600,w_400/v1/document_web/document/e1ljhjf2vlpcslfjztls.jpg",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quisquam voluptates eum non sed, necessitatibus repudiandae ratione possimus, quas eius autem vitae recusandae nobis nulla provident maiores numquam adipisci veritatis!",
-    categories: ["economy", "math", "physic"],
-    avt: "https://qph.cf2.quoracdn.net/main-qimg-6050518b10b77cab9dfc95c4527c61ff-lq",
-    author: "By Kishimoto Masashi",
-    created_at: "JustNow",
-  },
-  {
-    id: 2,
-    name: "Comic Name",
-    thumbnail:
-      "https://res.cloudinary.com//dy9g317c9/image/upload/c_fill,h_600,w_400/v1/document_web/document/efezkbtcoi1wqzqdrpiy.jpg",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quisquam voluptates eum non sed, necessitatibus repudiandae ratione possimus, quas eius autem vitae recusandae nobis nulla provident maiores numquam adipisci veritatis!",
-    categories: ["economy", "biology"],
-    avt: "https://qph.cf2.quoracdn.net/main-qimg-6050518b10b77cab9dfc95c4527c61ff-lq",
-    author: "By Kishimoto Masashi",
-    created_at: "JustNow",
-  },
-  {
-    id: 3,
-    name: "Comic Name",
-    thumbnail:
-      "https://res.cloudinary.com//dy9g317c9/image/upload/c_fill,h_600,w_400/v1/document_web/document/psmcoiydyrvu7ihj9l3o.jpg",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quisquam voluptates eum non sed, necessitatibus repudiandae ratione possimus, quas eius autem vitae recusandae nobis nulla provident maiores numquam adipisci veritatis!",
-    categories: ["economy", "other", "self help"],
-    avt: "https://qph.cf2.quoracdn.net/main-qimg-6050518b10b77cab9dfc95c4527c61ff-lq",
-    author: "By Kishimoto Masashi",
-    created_at: "JustNow",
-  },
-];
+import { documentReducerActions } from "../store/slices/documentSlice";
+
+const filterByCate = (document, cateID) => {
+  const docArr = [];
+  const id = cateID.split("=")[1];
+  document.forEach((element) => {
+    if (element.categories.some((cate) => cate.category_id == id)) {
+      docArr.push(element);
+    }
+  });
+  return docArr;
+};
 
 function SearchPage() {
+  const { document } = useSelector((state) => state.document);
+  const [filterDoc, serFiterDoc] = useState(document);
+  const { keyword, category } = useParams();
+  const location = useLocation();
+
+  const dispatch = useDispatch();
   const items = [];
-  COMIC_ITEM_DATA.map((comic) => {
-    return items.push(<DocumentItem comic={comic} key={comic.id} />);
+
+  React.useEffect(() => {
+    dispatch(documentReducerActions.sortDocument(location.search));
+    if (location.search != "?sort=asc" || location.search != "?sort=desc") {
+      console.log(filterByCate(document, location.search));
+    }
+  }, [location.search, dispatch]);
+
+  React.useEffect(() => {
+    if (keyword !== "*") {
+      dispatch(search(keyword));
+    } else {
+      dispatch(getByCategory(category));
+    }
+  }, [keyword, category]);
+
+  document?.map((doc) => {
+    return items.push(<DocumentItem doc={doc} key={doc.id} />);
   });
+
   return (
     <>
       <FilterSearch />
-      <PaginatedItems data={items} itemsPerPage={4} />
+      {!document.length ? (
+        <div className={classes.not__found}>Not Found</div>
+      ) : (
+        <PaginatedItems data={items} itemsPerPage={8} />
+      )}
     </>
   );
 }

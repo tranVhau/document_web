@@ -1,33 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+
+import documentAPI from "../../../api/documentAPI";
 
 import classes from "./FilterSearch.module.css";
 // import OptionFilterItem from "./OptionFilterItem";
 
-const DUMMY_CATEGORIES = [
-  { name: "Economy", url: "cate/ecomomy" },
-  { name: "Chemistry", url: "cate/chemistry" },
-  { name: "History", url: "cate/history" },
-  { name: "Geography", url: "cate/geography" },
-  { name: "Computer Science", url: "cate/cs" },
-  { name: "Biology", url: "cate/biology" },
-  { name: "Language", url: "cate/language" },
-  { name: "Maths", url: "cate/maths" },
-];
+// const DUMMY_CATEGORIES = [
+//   { name: "Economy", url: "cate/ecomomy" },
+//   { name: "Chemistry", url: "cate/chemistry" },
+//   { name: "History", url: "cate/history" },
+//   { name: "Geography", url: "cate/geography" },
+//   { name: "Computer Science", url: "cate/cs" },
+//   { name: "Biology", url: "cate/biology" },
+//   { name: "Language", url: "cate/language" },
+//   { name: "Maths", url: "cate/maths" },
+// ];
 
 function FilterSearch() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isAscending, setIsAscending] = useState(true);
+  const [categories, setCategoyList] = useState();
+
+  const fetchCategory = async () => {
+    const res = await documentAPI.getAllCategory();
+    setCategoyList(res.data);
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
+  const changeSortStatusHandler = (e) => {
+    e.preventDefault();
+    setIsAscending(!isAscending);
+    isAscending
+      ? (location.search = `?sort=asc`)
+      : (location.search = `?sort=desc`);
+    navigate(`${location.pathname}${location.search}`);
+  };
+
+  const categoryChangeHandler = (e) => {
+    e.preventDefault();
+    navigate(`${location.pathname}?cate=${e.target.value}`);
+  };
+
   return (
     <div className={`${classes.story_list_bl01} ${classes.box}`}>
+      <h4>Filter:</h4>
       <table>
         <tbody>
           <tr>
-            <th>Thể loại truyện</th>
+            <th>Categories</th>
           </tr>
           <tr>
             <td>
               <div className={`${classes.select} ${classes.is_warning}`}>
-                <select className={classes.cate_options}>
-                  {DUMMY_CATEGORIES.map((item, index) => {
-                    return <option key={index}> {item.name}</option>;
+                <select
+                  onChange={categoryChangeHandler}
+                  className={classes.cate_options}
+                >
+                  {categories?.map((item, index) => {
+                    return (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -36,53 +75,21 @@ function FilterSearch() {
         </tbody>
         <tbody>
           <tr>
-            <th>Sắp Xếp</th>
+            <th>Sort By Date</th>
           </tr>
           <tr>
             <td>
               <ul className={classes.choose}>
                 <li>
-                  <a href="">Ngày tăng dần</a>
+                  <NavLink onClick={changeSortStatusHandler}>
+                    {isAscending ? "Ascending" : "Descending"}
+                  </NavLink>
                 </li>
-                <li>
-                  <a href="">Ngày giảm dần</a>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <th>Quốc gia</th>
-          </tr>
-          <tr>
-            <td>
-              <ul className={classes.choose}>
-                <li>
-                  <a title="Truyện Việt Nam" href="">
-                    Việt Nam
-                  </a>
-                </li>
-                <li>
-                  <a title="Truyện Trung Quốc" href="">
-                    Trung Quốc
-                  </a>
-                </li>
-                <li>
-                  <a title="Truyện Hàn Quốc" href="">
-                    Hàn Quốc
-                  </a>
-                </li>
-                <li>
-                  <a title="Truyện Nhật Bản" href="">
-                    Nhật Bản
-                  </a>
-                </li>
-                <li>
-                  <a title="Truyện Mỹ" href="">
-                    Mỹ
-                  </a>
-                </li>
+                {/* <li>
+                  <NavLink onClick={changeSortStatusHandler}>
+                    Descending
+                  </NavLink>
+                </li> */}
               </ul>
             </td>
           </tr>

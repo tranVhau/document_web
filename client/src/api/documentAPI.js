@@ -24,6 +24,21 @@ const documentAPI = {
       data: document,
     });
   },
+
+  search: (keyword) => {
+    const url = `http://localhost:8000/api/documents/search/${keyword}`;
+    return axiosClient.get(url);
+  },
+
+  getAllCategory: () => {
+    const url = "http://localhost:8000/api/categories";
+    return axiosClient.get(url);
+  },
+
+  getByCategory: (id) => {
+    const url = `http://localhost:8000/api/doc-cate/${id}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default documentAPI;

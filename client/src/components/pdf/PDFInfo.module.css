@@ -31,12 +31,15 @@
   margin-left: 6px;
 }
 
+.book_avatar img {
+  border-radius: 6px;
+}
+
 .cates_list {
   display: flex;
   list-style: none;
   text-decoration: none;
   justify-content: left;
-  margin-left: -50px;
 }
 
 .cates_list li {

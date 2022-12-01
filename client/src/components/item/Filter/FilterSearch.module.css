@@ -11,6 +11,11 @@
 .cate_options {
   height: 2rem;
   width: auto;
+  padding: 6px;
+}
+
+.cate_options option {
+  padding: 4px;
 }
 
 .story_list_bl01 tr {

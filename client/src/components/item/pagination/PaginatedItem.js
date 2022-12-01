@@ -22,8 +22,7 @@ function PaginatedItems({ itemsPerPage, data }) {
   useEffect(() => {
     // Fetch items from another resources.
     const endOffset = itemOffset + itemsPerPage;
-
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(items.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(items.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, items]);
