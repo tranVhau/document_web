@@ -15,7 +15,7 @@ const filterByCate = (document, cateID) => {
   const docArr = [];
   const id = cateID.split("=")[1];
   document.forEach((element) => {
-    if (element.categories.some((cate) => cate.category_id === id)) {
+    if (element.categories.some((cate) => cate.category_id == id)) {
       docArr.push(element);
     }
   });
