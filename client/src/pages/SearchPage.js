@@ -15,16 +15,27 @@ const filterByCate = (document, cateID) => {
   const docArr = [];
   const id = cateID.split("=")[1];
   document.forEach((element) => {
-    if (element.categories.some((cate) => cate.category_id == id)) {
+    if (element.categories.some((cate) => cate.category_id === id)) {
       docArr.push(element);
     }
   });
   return docArr;
 };
 
+const sortDocument = (document, action) => {
+  const type = action.split("=")[1];
+  document.sort((docA, docB) => {
+    if (type === "asc") {
+      return docA.created_at > docB.created_at ? 1 : -1;
+    } else if (type === "desc") {
+      return docA.created_at < docB.created_at ? 1 : -1;
+    }
+  });
+};
+
 function SearchPage() {
-  const { document } = useSelector((state) => state.document);
-  const [filterDoc, serFiterDoc] = useState(document);
+  const document = useSelector((state) => state.document.document);
+  const [filterDoc, setFilterDoc] = useState(document);
   const { keyword, category } = useParams();
   const location = useLocation();
 
@@ -33,10 +44,16 @@ function SearchPage() {
 
   React.useEffect(() => {
     dispatch(documentReducerActions.sortDocument(location.search));
-    if (location.search != "?sort=asc" || location.search != "?sort=desc") {
-      console.log(filterByCate(document, location.search));
+    if (location.search !== "?sort=asc" || location.search !== "?sort=desc") {
+      setFilterDoc(filterByCate(document, location.search));
     }
+    // console.log(setFilterDoc(sortDocument(document, location.search)));
+    // console.log(filterDoc);
   }, [location.search, dispatch]);
+
+  React.useEffect(() => {
+    setFilterDoc(document);
+  }, [document]);
 
   React.useEffect(() => {
     if (keyword !== "*") {
@@ -44,9 +61,9 @@ function SearchPage() {
     } else {
       dispatch(getByCategory(category));
     }
-  }, [keyword, category]);
+  }, [keyword, category, dispatch]);
 
-  document?.map((doc) => {
+  filterDoc?.map((doc) => {
     return items.push(<DocumentItem doc={doc} key={doc.id} />);
   });
 

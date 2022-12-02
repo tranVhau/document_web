@@ -60,6 +60,7 @@ function FilterSearch() {
                 <select
                   onChange={categoryChangeHandler}
                   className={classes.cate_options}
+                  title="filter"
                 >
                   {categories?.map((item, index) => {
                     return (

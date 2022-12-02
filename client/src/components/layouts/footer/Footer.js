@@ -25,6 +25,7 @@ function Footer() {
       </ul>
       <div className={classes.footer__logo}>
         <img
+          alt="something went wrong"
           className={classes.footer__logo}
           src={require("../header/asset/LogoDocumentWeb.png")}
         />

@@ -19,11 +19,15 @@ function ShareDocument(props) {
         <div className={classes.content}>
           <div>
             <label>Document</label>
-            <input type={"file"} accept="application/pdf" />
+            <input
+              type={"file"}
+              accept="application/pdf"
+              title="Document Name"
+            />
           </div>
           <div>
             <label>Name</label>
-            <input type="text"></input>
+            <input type="text" title="Document Name"></input>
           </div>
           <div>
             <label>Description</label>

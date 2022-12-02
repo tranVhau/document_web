@@ -12,7 +12,10 @@ function Header({ isVisible }) {
       className={`${classes.header} ${!isVisible ? classes.hidden_header : ""}`}
     >
       <div className={classes.logo}>
-        <img src={require("./asset/LogoDocumentWeb.png")}></img>
+        <img
+          alt="someting went wrong"
+          src={require("./asset/LogoDocumentWeb.png")}
+        ></img>
       </div>
       <nav className={classes.nav}>
         <ul>
