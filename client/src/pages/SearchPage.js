@@ -15,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 const filterByCate = (document, cateID) => {
   const docArr = [];
   const id = cateID.split("=")[1];
-  document?.forEach((element) => {
+  document.forEach((element) => {
     if (element.categories.some((cate) => cate.category_id == id)) {
       docArr.push(element);
     }
