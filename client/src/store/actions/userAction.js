@@ -1,14 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import documentAPI from "../../api/documentAPI";
 import userAPI from "../../api/userAPI";
 
 //THUNK
 //register
 export const registerUser = createAsyncThunk(
-  // action type string
   "user/register",
-  // callback function
-  async ({ firstName, email, password }, { rejectWithValue }) => {
+  async ({ name, email, password }, { rejectWithValue }) => {
     try {
       // configure header's Content-Type as JSON
       const config = {
@@ -19,7 +18,7 @@ export const registerUser = createAsyncThunk(
       // make request to backend
       await axios.post(
         "http://localhost:8000/api/auth/register",
-        { firstName, email, password },
+        { name, email, password },
         config
       );
     } catch (error) {
@@ -35,10 +34,20 @@ export const registerUser = createAsyncThunk(
 
 export const userLogin = createAsyncThunk(
   "user/login",
-  async (userLoginData, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      const data = await userAPI.login(userLoginData);
-      localStorage.setItem("userToken", data.access_token);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "http://localhost:8000/api/auth/login",
+        { email, password },
+        config
+      );
+
+      localStorage.setItem("access_token", data.access_token);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -49,7 +58,6 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
-
 // get userInfo
 
 export const getUserInfo = createAsyncThunk(
@@ -67,6 +75,25 @@ export const getUserInfo = createAsyncThunk(
     }
   }
 );
+//userLogout
+
+export const logout = createAsyncThunk(
+  "user/logout",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data } = await userAPI.logout();
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+//get all user
 
 export const getAllUsers = createAsyncThunk(
   "user/getAllUser",

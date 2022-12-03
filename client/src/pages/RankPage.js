@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import HorizonItem from "../components/item/HorizonItem";
 
+import { popular } from "../store/actions/documentAction";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "../components/item/HorizonItem.module.css";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const COMIC_ITEM_DATA = [
   {
@@ -41,14 +44,27 @@ const COMIC_ITEM_DATA = [
 ];
 
 function RankPage() {
-  let url =
-    "https://res.cloudinary.com//dy9g317c9/image/upload/b_auto,c_pad,h_400,w_600/v1/document_web/document/a27by8lilnrrqzmi64kq.jpg";
+  const [popularList, setPopularList] = React.useState();
+  const dispatch = useDispatch();
+
+  const fetchPopular = async () => {
+    try {
+      setPopularList(unwrapResult(await dispatch(popular(10))));
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchPopular();
+  }, []);
+
+  console.log(popularList);
+
   return (
     <div className={classes.container}>
       <div className={classes.tag_name}>
         <h1 className={classes.cate_tag}>Popular</h1>
       </div>
-      {COMIC_ITEM_DATA.map((doc) => {
+      {popularList?.map((doc) => {
         return <HorizonItem doc={doc} key={doc.id} />;
       })}
     </div>

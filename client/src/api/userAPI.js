@@ -10,6 +10,11 @@ const authAPI = {
     });
   },
 
+  logout: () => {
+    const url = `http://localhost:8000/api/auth/logout`;
+    return axiosClient.post(url);
+  },
+
   me: () => {
     const url = "http://localhost:8000/api/auth/me";
     return axiosClient.get(url);
@@ -24,11 +29,6 @@ const authAPI = {
     });
   },
 
-  getAll: () => {
-    const url = "http://localhost:8000/api/users";
-    return axiosClient.get(url);
-  },
-
   store: (user) => {
     const url = "http://localhost:8000/api/user";
     return axiosClient({
@@ -36,11 +36,6 @@ const authAPI = {
       method: "post",
       data: user,
     });
-  },
-
-  delete: (id) => {
-    const url = `http://localhost:8000/api/user/${id}`;
-    return axiosClient.delete(url);
   },
 
   update: (id, user) => {

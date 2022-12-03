@@ -48,7 +48,7 @@ function DocManagementPage() {
 
   const deleteDocHandler = () => {
     dispatch(delDocument(rowSelected.id));
-    toast("Document Delete Successfully", {
+    toast("Document Deleted Successfully", {
       type: "success",
     });
     fetchAllDocument();

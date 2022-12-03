@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
   padding: 3rem 3rem 2rem 3rem;
-  background-color: #495c83;
+  background: linear-gradient(152deg, #2b5876, #4e4376) no-repeat;
 }
 
 .footer__nav {

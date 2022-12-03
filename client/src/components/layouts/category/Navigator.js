@@ -26,17 +26,10 @@ function Navigator(props) {
               onMouseEnter={() => setVisibleCate(true)}
               onMouseLeave={() => setVisibleCate(false)}
             >
-              <NavLink
-                className={(navLink) =>
-                  navLink.isActive ? classes.active : ""
-                }
-                to={"/categories"}
-              >
-                Category
-              </NavLink>
+              <div className={classes.contact}>Category</div>
             </li>
 
-            <li>
+            {/* <li>
               <NavLink
                 className={(navLink) =>
                   navLink.isActive ? classes.active : ""
@@ -45,7 +38,7 @@ function Navigator(props) {
               >
                 Lastest
               </NavLink>
-            </li>
+            </li> */}
 
             <li>
               <NavLink

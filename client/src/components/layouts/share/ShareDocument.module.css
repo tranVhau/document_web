@@ -36,12 +36,14 @@
 
 .content {
   padding: 1rem;
-  background-color: aliceblue;
+  background-color: #f8f9fa;
 }
 
 .content label {
   display: block;
   font-weight: 700;
+  color: rgba(0, 0, 0, 0.652);
+  margin-top: 4px;
 }
 
 .content input {
@@ -51,7 +53,7 @@
   padding: 2px 8px;
   text-align: left;
   background-color: #ffffff;
-  border-color: #b3b3b3;
+  border-color: #d0d0d071;
   border-radius: 4px;
   border-style: solid;
   border-width: 1px;
@@ -66,23 +68,23 @@
   padding: 0.8rem;
   display: flex;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: white;
   border-top: 1px solid rgb(178, 178, 178);
 }
 
 .actions button {
   background-color: #ffffff;
   padding: 10px 20px;
-  border: 1px solid #535f72;
+  border: 2px solid #535f72;
   border-radius: 4px;
   margin: 0 20px;
   font-weight: bold;
+  color: #535f72;
 }
 
 .actions button:hover {
   background-color: #495c83;
   color: #ffffff;
-  border: 1px solid rgb(235, 235, 235);
   border-radius: 4px;
   transition: 0.5s;
 }

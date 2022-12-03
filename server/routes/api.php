@@ -40,6 +40,8 @@ Route::controller(DocumentController::class)->group(function () {
     Route::get('documents/search/{keyword}', 'search');
     Route::get('documents/{limit}', 'getLimit');
     Route::get('doc-cate/{id}', 'getByCate');
+    Route::get('doc-popular/{num}', 'popular');
+    Route::get('overview', 'overview');
 }); 
 
 

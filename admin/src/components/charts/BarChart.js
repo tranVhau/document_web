@@ -1,31 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import ResizableBox from "./wrapper-chart/ResizableBox";
 import { Chart } from "react-charts";
 
-function BarChart() {
-  const data = React.useMemo(
-    () => [
-      {
-        label: "Series 1",
-        data: [
-          {
-            primary: "Darknhantam",
-            secondary: 100,
-          },
-          {
-            primary: "Darknhantam2",
-            secondary: 180,
-          },
-          {
-            primary: "Darknhantam3",
-            secondary: 120,
-          },
-        ],
-      },
-    ],
-    []
-  );
+function BarChart(props) {
+  const [dat, setData] = useState(props.data);
+  // console.log(dat);
+
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
+
+  console.log(dat);
+  // const data = [
+  //   {
+  //     label: "Series 1",
+  //     data: [
+  //       // {
+  //       //   primary: "Darknhantam",
+  //       //   secondary: 100,
+  //       // },
+  //       // {
+  //       //   primary: "Darknhantam2",
+  //       //   secondary: 180,
+  //       // },
+  //       // {
+  //       //   primary: "Darknhantam3",
+  //       //   secondary: 120,
+  //       // },
+  //     ],
+  //   },
+  // ];
+
+  // useEffect(() => {
+  //   dat?.forEach((element) => {
+  //     let obj = {
+  //       primary: element.name,
+  //       secondary: element.avgRate,
+  //     };
+  //     // temData.push(obj);
+  //     data[0].data.push(obj);
+  //   });
+  // }, [dat]);
 
   const primaryAxis = React.useMemo(
     () => ({
@@ -50,7 +66,7 @@ function BarChart() {
       <ResizableBox>
         <Chart
           options={{
-            data,
+            dat,
             primaryAxis,
             secondaryAxes,
           }}

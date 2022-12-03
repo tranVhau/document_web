@@ -10,6 +10,11 @@ const authAPI = {
     });
   },
 
+  logout: () => {
+    const url = `http://localhost:8000/api/auth/logout`;
+    return axiosClient.post(url);
+  },
+
   me: () => {
     const url = "http://localhost:8000/api/auth/me";
     return axiosClient.get(url);

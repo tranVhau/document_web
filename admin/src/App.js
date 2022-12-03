@@ -15,7 +15,30 @@ import AuthPage from "./pages/auth/AuthPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import HistoryView from "./pages/history/HistoryView";
 
+import { getUserInfo } from "./store/actions/userAction";
+import { useDispatch } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useLocation } from "react-router-dom";
+
 function App() {
+  const dispatch = useDispatch();
+  let location = useLocation();
+
+  const getCurrUserInfo = async () => {
+    if (location.pathname !== "/login") {
+      const info = unwrapResult(await dispatch(getUserInfo()));
+      if (!localStorage.getItem("email")) {
+        for (let [key, value] of Object.entries(info)) {
+          if (key !== "isAdmin" && key !== "created_at" && key !== "updated_at")
+            localStorage.setItem(key, value);
+        }
+      }
+    }
+  };
+  React.useEffect(() => {
+    getCurrUserInfo();
+  }, [location]);
+
   return (
     <Routes>
       <Route element={<Layout />}>

@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./DocumentItem.module.css";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
+import { AiFillStar } from "react-icons/ai";
 
 function DocumentItem(props) {
   const calBetweenTimes = (past) => {
@@ -14,9 +15,18 @@ function DocumentItem(props) {
       return moment(past).format("DD/MMM/YYYY");
     }
   };
+
   return (
     <div className={classes.post_item}>
       <div className={classes.post_media}>
+        <span className={classes.start_mark}>
+          {`${
+            props.doc.avgRate
+              ? Number(props.doc.avgRate).toFixed(1) + "/5"
+              : "-.-" + "/5"
+          }`}
+          <AiFillStar />
+        </span>
         <img
           src={props.doc?.thumbnail}
           alt="something went wrong"

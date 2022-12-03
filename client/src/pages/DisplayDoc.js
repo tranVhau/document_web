@@ -10,6 +10,7 @@ import RatingStar from "../components/item/Rating/RatingStar";
 
 import "../components/pdf/PdfSection.css";
 import { unwrapResult } from "@reduxjs/toolkit";
+import moment from "moment";
 
 function DisplayDoc() {
   const { id } = useParams();
@@ -22,6 +23,8 @@ function DisplayDoc() {
     fetchDocumentData();
   }, []);
 
+  console.log(moment(moment()).diff(moment(), "hours"));
+
   return (
     <div className="document_view">
       <PDFInfo document={document} />
@@ -29,6 +32,7 @@ function DisplayDoc() {
       <div className="all_page_container">
         <PdfSection url={document.src} />
       </div>
+      <div></div>
     </div>
   );
 }

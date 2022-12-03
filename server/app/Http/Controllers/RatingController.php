@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Models\Rating;
+use Illuminate\Support\Facades\DB;
 
 class RatingController extends Controller
 {
@@ -23,20 +25,34 @@ class RatingController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'point'=>'required|integer'
-        ]);
+        // $request->validate([
+        //     'point'=>'required|integer'
+        // ]);
 
-        $rating = Rating::create([
-            'user_id' => $request->user_id,
-            'document_id' => $request->document_id,
-            'point'=>$request->point
-        ]);
+        // $rating = Rating::create([
+        //     'user_id' => $request->user_id,
+        //     'document_id' => $request->document_id,
+        //     'point'=>$request->point
+        // ]);
+
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Rating created successfully',
+        //     'rating' => $rating,
+        // ]);
+
+        $post = Document::where('id', $request->id)->first();
+        // $post = Document::first();
+        $post->rateOnce($request->point);
+        // dd(Document::first()->ratings);
+        // dd($post->averageRating);
+        // dd($post->timesRated());
+        // dd(Document::first());
+
+
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Rating created successfully',
-            'rating' => $rating,
+            'status' => 'success'
         ]);
     }
 

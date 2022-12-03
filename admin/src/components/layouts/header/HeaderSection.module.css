@@ -12,3 +12,14 @@
 .menu_icon {
   display: none;
 }
+
+.user__logout {
+  cursor: pointer;
+  padding: 2px;
+}
+
+.user__logout:hover {
+  background-color: rgb(193, 193, 193);
+  border-radius: 2rem;
+  transition: 0.5;
+}

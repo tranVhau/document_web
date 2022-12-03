@@ -19,12 +19,17 @@ const initialState = {
   error: null,
   success: false,
   users: [],
+  isLogedIn: false,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    visibleLogin(state) {
+      state.isLogedIn = !state.isLogedIn;
+    },
+  },
   extraReducers: {
     // login user
     [userLogin.pending]: (state) => {
@@ -114,4 +119,5 @@ const userSlice = createSlice({
   },
 });
 
+export const userActionReducer = userSlice.actions;
 export default userSlice.reducer;

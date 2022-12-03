@@ -145,13 +145,48 @@ export const search = createAsyncThunk(
   }
 );
 
-//e=
+//get document by category id
 
 export const getByCategory = createAsyncThunk(
   "document/getByCategory",
   async (id, { rejectWithValue }) => {
     try {
       const res = await documentAPI.getByCategory(id);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+//Rating
+
+export const Rating = createAsyncThunk(
+  "user/Rating",
+  async (payload, { rejectWithValue }) => {
+    try {
+      // const { ratingData } = payload;
+      const res = await documentAPI.newRating(payload);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const popular = createAsyncThunk(
+  "document/popular",
+  async (num, { rejectWithValue }) => {
+    try {
+      const res = await documentAPI.popular(num);
       return res.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

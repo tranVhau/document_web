@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ratings', function (Blueprint $table) {
+        Schema::create('ratings-temp', function (Blueprint $table) {
            
             $table->id();
             $table->integer('point');        

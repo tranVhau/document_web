@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import classes from "./HorizonItem.module.css";
 
@@ -21,13 +22,14 @@ function HorizonItem(props) {
               </div>
             );
           })}
-          <h2>
-            <div
+          <h4>
+            <NavLink
+              to={`/document/${props.doc?.id}`}
               className={`${classes.post_feature_title} ${classes.post_title}`}
             >
               {props.doc.name}
-            </div>
-          </h2>
+            </NavLink>
+          </h4>
           <p className={classes.post_desc}>{props.doc.desc}</p>
           <div className={classes.post_author}>
             <img

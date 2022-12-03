@@ -6,6 +6,7 @@ import {
   getLimitDocument,
   search,
   getByCategory,
+  popular,
 } from "../actions/documentAction";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   document: [],
   error: null,
   success: false,
+  shareVisible: false,
 };
 
 const documentSlice = createSlice({
@@ -27,6 +29,10 @@ const documentSlice = createSlice({
           return docA.created_at < docB.created_at ? 1 : -1;
         }
       });
+    },
+
+    visibleShareModal(state) {
+      state.shareVisible = !state.shareVisible;
     },
   },
   extraReducers: {
@@ -114,6 +120,21 @@ const documentSlice = createSlice({
       state.success = true;
     },
     [getByCategory.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+
+    //popular
+
+    [popular.pending]: (state) => {
+      state.loading = true;
+    },
+    [popular.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.document = payload;
+      state.success = true;
+    },
+    [popular.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },

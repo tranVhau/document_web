@@ -10,6 +10,7 @@ import DisplayDoc from "./pages/DisplayDoc";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "react-toastify/ReactToastify.min.css";
 
 function App() {
   const [productList, setProductList] = useState([]);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/popular" element={<RankPage />} />
         <Route path="/document/:id" element={<DisplayDoc />} />
+        {/* <Route path="/login" element={<AuthPage />} /> */}
       </Route>
     </Routes>
   );

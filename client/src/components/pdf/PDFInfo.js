@@ -36,7 +36,13 @@ function PDFInfo({ document }) {
               <li>
                 <AiOutlineStar />
                 <p className={classes.info_title}>Rating</p>
-                <p>4.8/5</p>
+                <p>
+                  {`${
+                    document.avgRate
+                      ? Number(document.avgRate).toFixed(1) + "/5"
+                      : "-.-" + "/5"
+                  }  (${document.sumOfRate})`}
+                </p>
               </li>
             </ul>
             <ul className={classes.cates_list}>

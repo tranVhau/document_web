@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use willvincent\Rateable\Rateable;
 
 class Document extends Model
 {
+    use Rateable;
     use HasFactory;
     protected $fillable  = ['name','user_id','desc', 'thumbnail','isPublic', 'src'];
     

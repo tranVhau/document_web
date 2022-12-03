@@ -11,11 +11,12 @@ import classes from "./asset/css/SearchPage.module.css";
 
 import { documentReducerActions } from "../store/slices/documentSlice";
 
+import { ToastContainer, toast } from "react-toastify";
 const filterByCate = (document, cateID) => {
   const docArr = [];
   const id = cateID.split("=")[1];
-  document.forEach((element) => {
-    if (element.categories.some((cate) => cate.category_id === id)) {
+  document?.forEach((element) => {
+    if (element.categories.some((cate) => cate.category_id == id)) {
       docArr.push(element);
     }
   });
@@ -34,7 +35,7 @@ const sortDocument = (document, action) => {
 };
 
 function SearchPage() {
-  const document = useSelector((state) => state.document.document);
+  const { document } = useSelector((state) => state.document);
   const [filterDoc, setFilterDoc] = useState(document);
   const { keyword, category } = useParams();
   const location = useLocation();
@@ -55,6 +56,8 @@ function SearchPage() {
     setFilterDoc(document);
   }, [document]);
 
+  filterByCate(document, location.search);
+
   React.useEffect(() => {
     if (keyword !== "*") {
       dispatch(search(keyword));
@@ -66,16 +69,15 @@ function SearchPage() {
   filterDoc?.map((doc) => {
     return items.push(<DocumentItem doc={doc} key={doc.id} />);
   });
-
   return (
-    <>
+    <div>
       <FilterSearch />
       {!document.length ? (
         <div className={classes.not__found}>Not Found</div>
       ) : (
         <PaginatedItems data={items} itemsPerPage={8} />
       )}
-    </>
+    </div>
   );
 }
 

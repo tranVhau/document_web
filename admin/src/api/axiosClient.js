@@ -3,26 +3,38 @@ import axios from "axios";
 // import queryString from "query-string";
 // Set up default config for http requests here
 
-const axiosClient = axios.create({
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-  },
+const axiosClient = axios.create();
+// ({
+//   headers: {
+//     Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+//   },
 
-  // paramsSerializer: (params) => queryString.stringify(params),
-});
+//   // paramsSerializer: (params) => queryString.stringify(params),
+// });
 
 // Add a request interceptor
+// axiosClient.interceptors.request.use(
+//   function (config) {
+//     //handle token...
+//     // config.headers.authorization = localStorage.getItem("userToken");
+//     // Do something before request is sent
+//     return config;
+//   },
+//   function (error) {
+//     // Do something with request error
+//     return Promise.reject(error);
+//   }
+// );
+
 axiosClient.interceptors.request.use(
-  function (config) {
-    //handle token...
-    // config.headers.authorization = localStorage.getItem("userToken");
-    // Do something before request is sent
+  (config) => {
+    const token = localStorage.getItem("userToken");
+    const auth = token ? `Bearer ${token}` : "";
+    config.headers["Authorization"] = auth;
+
     return config;
   },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Add a response interceptor
@@ -35,6 +47,10 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     // Handle errors
+    if (error.response.status === 401) {
+      localStorage.clear();
+      window.location = "/login";
+    }
     throw error;
   }
 );

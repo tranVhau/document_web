@@ -110,3 +110,19 @@ export const newDocument = createAsyncThunk(
     }
   }
 );
+
+export const popular = createAsyncThunk(
+  "document/popular",
+  async (num, { rejectWithValue }) => {
+    try {
+      const res = await documentAPI.popular(num);
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);

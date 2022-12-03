@@ -1,0 +1,20 @@
+.submit__btn {
+  margin-left: 2rem;
+  padding: 0 1rem;
+  border-radius: 6px;
+  background-color: rgb(76, 94, 147);
+  border: 2px solid rgb(76, 94, 147);
+  color: white;
+  font-weight: bold;
+}
+.submit__btn:hover {
+  background-color: rgb(255, 255, 255);
+  color: rgb(76, 94, 147);
+  transition: 0.5s;
+}
+
+.rating__field {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}

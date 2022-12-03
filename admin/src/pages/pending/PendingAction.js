@@ -94,7 +94,7 @@ function PendingActions() {
       });
 
       unwrapResult(await dispatch(newHistory({ history: formData })));
-      toast("Update Successfully", {
+      toast("Document Approved", {
         type: "success",
       });
       setTimeout(() => {
@@ -109,6 +109,7 @@ function PendingActions() {
 
   const declineDocumentHandler = () => {
     dispatch(delDocument(id));
+    navigate("/pending-post");
     toast("Document Delete Successfully", {
       type: "success",
     });

@@ -50,6 +50,24 @@ export const userLogin = createAsyncThunk(
   }
 );
 
+//userLogout
+
+export const logout = createAsyncThunk(
+  "user/logout",
+  async (arg, { rejectWithValue }) => {
+    try {
+      const { data } = await authAPI.logout();
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
 // get userInfo
 
 export const getUserInfo = createAsyncThunk(

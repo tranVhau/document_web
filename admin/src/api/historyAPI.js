@@ -19,6 +19,11 @@ const historyAPI = {
       data: history,
     });
   },
+
+  overview: () => {
+    const url = "http://localhost:8000/api/overview";
+    return axiosClient.get(url);
+  },
 };
 
 export default historyAPI;

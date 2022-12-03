@@ -31,6 +31,10 @@
   margin-left: 6px;
 }
 
+.book_avatar {
+  width: 16rem;
+}
+
 .cates_list {
   display: flex;
   list-style: none;

@@ -43,6 +43,11 @@ const documentAPI = {
       data: document,
     });
   },
+
+  popular: (num) => {
+    const url = `http://localhost:8000/api/doc-popular/${num}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default documentAPI;

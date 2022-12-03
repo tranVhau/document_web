@@ -40,3 +40,34 @@
 .nav a.active {
   color: #e6fcfc;
 }
+
+.login_action_btn {
+  /* margin-left: 0.5rem; */
+  font-size: 16px;
+  padding: 0.4rem 0.8rem;
+  background-color: #e6fcfc;
+  border: 2px solid #384662;
+  color: #384662;
+  border-radius: 6px;
+}
+
+.login_action_btn:hover {
+  color: #fbfbfb;
+  background-color: #384662;
+  border: 2px solid #e6fcfc;
+  transition: 0.5s;
+}
+
+.user_action_btn {
+  line-height: 40px;
+  color: #ffffff94;
+  font-size: 2rem;
+  margin-top: 2px;
+  border-radius: 20px;
+}
+
+.user_action_btn:hover {
+  color: white;
+  background-color: #384662;
+  transition: 0.5s;
+}

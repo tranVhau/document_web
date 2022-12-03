@@ -144,6 +144,7 @@ function DocUpdateForm(props) {
                     name="src"
                     type={"file"}
                     onChange={inputPDFHandler}
+                    className={classes.uploadbtn}
                   ></input>
                 </div>
               )}

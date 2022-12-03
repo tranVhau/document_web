@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import classes from "../DocumentItem.module.css";
 import moment from "moment";
@@ -32,11 +33,12 @@ function SlideBar(props) {
           );
         })}
         <h2>
-          <div
+          <NavLink
+            to={`/document/${props.item?.id}`}
             className={`${classes.post_feature_title} ${classes.post_title}`}
           >
             {props.item.name}
-          </div>
+          </NavLink>
         </h2>
         <p className={classes.post_desc}>{props.item.desc}</p>
         <div className={classes.post_author}>

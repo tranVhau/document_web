@@ -23,7 +23,7 @@ function HistoryView() {
     fetchHistory(id);
   }, []);
 
-  console.log(history);
+  // console.log(history);
   return (
     <>
       <h2>History View</h2>
@@ -31,7 +31,13 @@ function HistoryView() {
         <div>
           <div className={classes.book_info}>
             <div className={classes.book_avatar}>
-              <img src={history.thumbnail}></img>
+              <img
+                // src={history.thumbnail}
+                src={history.thumbnail?.replace(
+                  "b_auto,c_pad,h_400,w_600",
+                  "h_500,w_400"
+                )}
+              ></img>
             </div>
             <div className={classes.book_other}>
               <h3>{history.name}</h3>

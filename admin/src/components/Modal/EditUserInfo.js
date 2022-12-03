@@ -1,35 +1,41 @@
-import React, { useState } from "react";
-import classes from "./EditUserInfo.module.css";
-import Select from "react-select";
+import React, { useEffect, useState } from "react";
+
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { getUserInfo } from "../../store/actions/userAction";
 
-const accountTypeOptions = [
-  { value: "User", label: "User", id: 0 },
-  { value: "Admin", label: "Admin", id: 1 },
-];
+import classes from "./EditUserInfo.module.css";
 
-function EditUser(props) {
-  const [image, setImage] = useState(
-    props.userSelectedData.avt
-      ? props.userSelectedData.avt
-      : "https://res.cloudinary.com/dy9g317c9/image/upload/v1668783258/document_web/img/avatar/author_xfn2aa.jpg"
-  );
+function EditUserInfo(props) {
+  const [currUser, setCurrUser] = useState();
+  const dispatch = useDispatch();
+  // const [image, setImage] = useState(localStorage.getItem("avt"));
   const { register, handleSubmit } = useForm();
 
-  const accountInputHandler = (e) => {
-    props.setInputData((prev) => ({
-      ...prev,
-      isAdmin: e.id,
-    }));
+  const getCurrUserInfo = async () => {
+    setCurrUser(unwrapResult(await dispatch(getUserInfo())));
   };
+
+  useEffect(() => {
+    getCurrUserInfo();
+  }, []);
+
   const imageInputHandler = (e) => {
     const img = e.target.files[0];
-    setImage(URL.createObjectURL(img));
+    setCurrUser((prev) => {
+      return {
+        ...prev,
+        avt: URL.createObjectURL(img),
+      };
+    });
     props.setInputData((prev) => ({
       ...prev,
       avt: img,
     }));
   };
+
+  console.log(currUser);
 
   const onSubmit = (data) => {
     props.setInputData((prev) => ({
@@ -43,13 +49,13 @@ function EditUser(props) {
       <div className={classes.backdrop} onClick={props.onClose}></div>
       <div className={`${classes.modal} ${classes.fade} `}>
         <header className={classes.header}>
-          <h2>{props.isNew ? "New User" : "User Detail"}</h2>
+          <h2>Change Personal Info</h2>
         </header>
 
         <form onChange={handleSubmit(onSubmit)}>
           <div className={classes.content}>
             <div className={classes.preview__image}>
-              <img src={image}></img>
+              <img src={currUser?.avt}></img>
               <div className={classes.input__avt}>
                 <label>User Avatar</label>
                 <input
@@ -60,22 +66,12 @@ function EditUser(props) {
                 ></input>
               </div>
             </div>
-
-            <div>
-              <label>Account</label>
-              <Select
-                closeMenuOnSelect={true}
-                defaultValue={[accountTypeOptions[0]]}
-                options={accountTypeOptions}
-                onChange={accountInputHandler}
-              />
-            </div>
             <div>
               <label>Email </label>
               <input
                 type="email"
                 {...register("email")}
-                placeholder={props.userSelectedData.email}
+                placeholder={currUser?.email}
               ></input>
             </div>
             <div>
@@ -83,7 +79,7 @@ function EditUser(props) {
               <input
                 type="text"
                 {...register("name")}
-                placeholder={props.userSelectedData.name}
+                placeholder={currUser?.name}
               ></input>
             </div>
             <div>
@@ -95,11 +91,8 @@ function EditUser(props) {
             <button onClick={props.onUpdate} hidden={props.isNew}>
               Update
             </button>
-            <button onClick={props.onDelete} hidden={props.isNew}>
-              Delete
-            </button>
-            <button onClick={props.onConfirm} hidden={!props.isNew}>
-              Confirm
+            <button onClick={props.onLogout} hidden={props.isNew}>
+              Logout
             </button>
             <button onClick={props.onClose}>Cancel</button>
           </footer>
@@ -109,4 +102,4 @@ function EditUser(props) {
   );
 }
 
-export default EditUser;
+export default EditUserInfo;

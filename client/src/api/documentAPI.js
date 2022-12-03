@@ -39,6 +39,20 @@ const documentAPI = {
     const url = `http://localhost:8000/api/doc-cate/${id}`;
     return axiosClient.get(url);
   },
+
+  newRating: (ratingData) => {
+    const url = "http://localhost:8000/api/rating";
+    return axiosClient({
+      url: url,
+      method: "post",
+      data: ratingData,
+    });
+  },
+
+  popular: (num) => {
+    const url = `http://localhost:8000/api/doc-popular/${num}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default documentAPI;

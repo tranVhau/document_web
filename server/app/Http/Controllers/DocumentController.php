@@ -15,7 +15,7 @@ class DocumentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index','show', 'getLimit', 'search','getByCate']]);
+        $this->middleware('auth:api', ['except' => ['index','show', 'getLimit', 'search','getByCate', 'popular', 'overview']]);
     }
 
     public function index()
@@ -37,6 +37,7 @@ class DocumentController extends Controller
 
         forEach($documents as $element){
             $element->categories = array();
+            $element->avgRate = Document::where('id', $element->id)->first()->averageRating();
         }
 
         
@@ -75,6 +76,7 @@ class DocumentController extends Controller
 
         forEach($documents as $element){
             $element->categories = array();
+            $element->avgRate = Document::where('id', $element->id)->first()->averageRating();
         }
 
         
@@ -100,8 +102,6 @@ class DocumentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'desc' => 'string',
-            'categories'=>'required',
-            // 'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'src'=> "required|mimetypes:application/pdf|max:10000",
         ]);
 
@@ -118,7 +118,7 @@ class DocumentController extends Controller
 
 
         $document = Document::create([
-            'user_id'=>$request->user_id,
+            'user_id'=>auth()->user()->id,
             'name' => $request->name,
             'desc' => $request->desc,
             'thumbnail' => $thumbnailClound,
@@ -156,7 +156,7 @@ class DocumentController extends Controller
     public function show($id)
     {
         $document = Document::find($id);
-
+        $rating = Document::where('id', $id)->first();
 
         $category = DB::table('document_categories')
             ->join('categories', 'categories.id','=','document_categories.category_id')
@@ -174,6 +174,8 @@ class DocumentController extends Controller
         // add the array space to store all document category
         forEach($documents as $element){
             $element->categories = array();
+            $element->avgRate =$rating->averageRating();
+            $element->sumOfRate = $rating->timesRated();
         }
         forEach( $documents as $doc){
             forEach($category as $cate){
@@ -377,6 +379,7 @@ class DocumentController extends Controller
         
         forEach($result as $element){
             $element->categories = array();
+            $element->avgRate = Document::where('id', $element->id)->first()->averageRating();
         }
 
         
@@ -410,6 +413,7 @@ class DocumentController extends Controller
 
         forEach($documents as $element){
             $element->categories = array();
+            $element->avgRate = Document::where('id', $element->id)->first()->averageRating();
         }
 
 
@@ -438,6 +442,102 @@ class DocumentController extends Controller
         return response()->json([
         'status' => 'success',
         'data' => $resDocument 
+        ], 200 );
+    }
+
+    public function popular($num){
+         $category = DB::table('document_categories')
+                    ->join('categories', 'categories.id','=','document_categories.category_id')
+                    ->select('document_categories.document_id', 'categories.name as category_name')
+                    ->get();
+        
+
+        $documents = DB::table('documents')
+                    ->join('users', 'users.id','=','documents.user_id')
+                    ->select('documents.*'  ,'users.name as username', 'users.avt')
+                    ->where('documents.isPublic','=',1)
+                    ->get();
+
+        // add the array space to store all document category
+
+        forEach($documents as $element){
+            $element->categories = array();
+            $element->avgRate = Document::where('id', $element->id)->first()->averageRating();
+        }
+
+        
+        forEach( $documents as $doc){
+           forEach($category as $cate){
+            if($cate->document_id == $doc->id){
+                array_push($doc->categories,$cate->category_name);
+            }
+           }
+        }
+
+        $resDocument = [];
+        foreach($documents as $doc){
+            array_push($resDocument,$doc);
+            
+        }
+
+        // dd(is_array($resDocument));
+
+        // usort($resDocument, function($a, $b)
+        //      {
+        //          if ($a["avgRate"] == $b["avgRate"])
+        //              return (0);
+        //          return (($a["avgRate"] < $b["avgRate"]) ? -1 : 1);
+        //      });
+
+
+        usort($resDocument, function($a, $b) {return strcmp($b->avgRate, $a->avgRate);});
+        $pupularDocument = [];
+        if(count($resDocument) > $num){
+            $pupularDocument = array_slice($resDocument, 0, $num);
+        }else{
+            $pupularDocument=$resDocument;
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $pupularDocument,
+        ], 200 );
+    }
+
+
+    public function overview(){
+        $data = [];
+        $documents = DB::table('documents')
+            ->where('documents.isPublic','=',1)
+            ->get();
+        $pending = DB::table('documents')
+            ->where('documents.isPublic','=',0)
+            ->count();
+        $document = DB::table('documents')
+            ->count();
+        $user = DB::table('users')
+            ->where('isAdmin', 0)
+            ->count();
+
+        $sumRate = 0;
+        $numOfDocRated = 0;
+        forEach($documents as $element){
+            $element->categories = array();
+            if(Document::where('id', $element->id)->first()->averageRating()){
+                $sumRate += Document::where('id', $element->id)->first()->averageRating();
+                $numOfDocRated ++;
+            }
+        };
+        $obj = (object) array('all_document' => $document, 'all_pending'=>$pending, 'all_user'=>$user, 'avg_rate'=>$sumRate/$numOfDocRated );
+       
+       
+
+        // array_push($data,{'all_document'=$document, '' });
+
+        // dd($pending, $document, $user, $sumRate, $numOfDocRated);
+        return response()->json([
+            'status' => 'success',
+            'data' => [$obj],
         ], 200 );
     }
 }
