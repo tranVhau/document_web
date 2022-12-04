@@ -10,7 +10,7 @@ function DocumentItem(props) {
     if (time > 0 && time < 3) {
       return `${time} days ago`;
     } else if (time === 0) {
-      return `${time} hours ago`;
+      return `${moment(moment()).diff(past, "hour")} hours ago`;
     } else {
       return moment(past).format("DD/MMM/YYYY");
     }

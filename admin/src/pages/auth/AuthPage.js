@@ -84,13 +84,13 @@ const AuthForm = () => {
             <button disabled={loading}>
               {isLogin ? "Login" : "Create Account"}
             </button>
-            <button
+            {/* <button
               type="reset"
               className={classes.toggle}
               onClick={switchAuthModeHandler}
             >
               {isLogin ? "Forgot Password" : "Login with existing account"}
-            </button>
+            </button> */}
           </div>
         </form>
         <ToastContainer position="bottom-right" newestOnTop />
